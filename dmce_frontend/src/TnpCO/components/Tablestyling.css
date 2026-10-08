@@ -1,0 +1,256 @@
+/* ───────────────────────────────
+   📘 Table Styling – Unified Full Width
+──────────────────────────────── */
+
+/* Wrapper around the entire section (Student / Yearwise / etc.) */
+.upload-section {
+  background-color: #fff;
+  padding: 20px 30px;
+  border-radius: 8px;
+  margin: 30px auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Section title */
+.header {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1e3a8a;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+/* ───────── Filters ───────── */
+.filter-container,
+.filter-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.filter-container input,
+.filter-container select,
+.filter-section select {
+  width: 200px;
+  height: 38px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  color: #111827;
+  background-color: #fff;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.filter-container select,
+.filter-section select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='18' viewBox='0 0 24 24' width='18' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+  padding-right: 30px;
+}
+
+.filter-container input:focus,
+.filter-container select:focus,
+.filter-section select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+/* Reset buttons for filters */
+.reset-button,
+.reset-btn {
+  width: 200px;
+  height: 38px;
+  border: none;
+  border-radius: 6px;
+  background-color: #1e3a8a;
+  color: #fff;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.reset-button:hover,
+.reset-btn:hover {
+  background-color: #3b59c2;
+}
+
+/* ───────── Tables ───────── */
+.table-section {
+  width: 100%;
+  margin: 40px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  box-sizing: border-box;
+}
+
+.table-section h3 {
+  font-size: 25px;
+  font-weight: 600;
+  color: #1e3a8a;
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 0;
+}
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin-top: 10px;
+  box-sizing: border-box;
+}
+
+/* Table core */
+.student-table {
+  width: 100%;
+  min-width: 800px;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+  font-size: 15px;
+  background-color: #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.student-table thead {
+  background-color: #1e3a8a;
+  color: #fff;
+}
+
+.student-table th,
+.student-table td {
+  border: 1px solid #e5e7eb;
+  padding: 12px 15px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.student-table th {
+  font-size: 15px;
+}
+
+.student-table tbody tr:nth-child(even) {
+  background-color: #f9fafc;
+}
+
+.student-table tbody tr:hover {
+  background-color: #f3f4f6;
+  transition: all 0.3s ease;
+}
+
+/* Responsive Text */
+@media (max-width: 1024px) {
+  .student-table th,
+  .student-table td {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .student-table {
+    font-size: 13px;
+  }
+  .student-table th,
+  .student-table td {
+    padding: 8px;
+  }
+}
+
+/* ───────── Buttons ───────── */
+.export-btn {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.export-btn:hover {
+  background-color: #45a049;
+}
+
+.export-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+/* ───────── Pagination ───────── */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.pagination-controls button {
+  padding: 8px 16px;
+  border: 1px solid #e5e7eb;
+  background-color: #fff;
+  color: #1e3a8a;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination-controls button:hover {
+  background-color: #3b59c2;
+  color: white;
+}
+
+.pagination-controls button:disabled {
+  background-color: #e5e7eb;
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination-controls button.active {
+  background-color: #1e3a8a;
+  color: #fff;
+  border: 1px solid #1e3a8a;
+}
+
+.rows-per-page {
+  margin-left: 12px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  background-color: white;
+  color: black;
+  cursor: pointer;
+}
+
+.rows-per-page:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+.rows-per-page option {
+  padding: 8px;
+}

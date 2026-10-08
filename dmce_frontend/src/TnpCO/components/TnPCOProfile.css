@@ -1,0 +1,187 @@
+.tnpco-profile-page .tnpco-register-container {
+  max-width: 1500px;
+  margin: 10px auto;
+  padding: 0 16px;
+}
+
+/* Profile card tweaks */
+.profile-card {
+  padding: 18px;
+  border-radius: 12px;
+  overflow: visible;
+}
+
+/* Header layout: avatar + title on left, actions on right */
+.profile-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(30,30,63,0.04);
+  margin-bottom: 14px;
+}
+
+.profile-header-left {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  min-width: 0;
+}
+
+/* Avatar */
+.profile-avatar {
+  width: 84px;
+  height: 84px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg,#eef5ff,#e7f0ff);
+  border: 2px solid rgba(30,30,63,0.06);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.profile-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.profile-initials {
+  font-weight: 800;
+  color: #1e3a8a;
+  font-size: 1.6rem;
+}
+
+/* Title block */
+.profile-title {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.profile-name {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffffff; /* ensure visible */
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.profile-department {
+  margin-top: 6px;
+  color: #f6f9fe;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+/* Edit button style (distinct green) */
+.header-actions .tnpco-submit-btn.small.edit-btn {
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  background: linear-gradient(135deg, #059669, #10b981);
+  color: #fff;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.header-actions .tnpco-submit-btn.small.edit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(6,95,70,0.12);
+}
+
+/* Loading */
+.profile-loading {
+  padding: 28px;
+  text-align: center;
+  color: #475569;
+  font-weight: 700;
+}
+
+.profile-section {
+  background: linear-gradient(180deg,#ffffff,#fbfdff);
+  border: 1px solid rgba(30,30,63,0.04);
+  padding: 14px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(14,28,80,0.04);
+}
+
+.section-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 12px;
+}
+
+/* Field row */
+.field {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 0;
+  border-bottom: 1px dashed rgba(30,30,63,0.03);
+}
+.field:last-child { border-bottom: none; }
+
+.field-label {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  font-weight: 800;
+}
+
+.field-value {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.field-icon {
+  color: #1e3a8a;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+  .profile-avatar { width: 72px; height: 72px; }
+  .profile-name { font-size: 1.05rem; }
+  .profile-department { font-size: 0.9rem; }
+  .profile-section { padding: 12px; }
+}
+
+@media (max-width: 520px) {
+  .tnpco-register-container { padding: 0 12px; }
+  .profile-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .header-actions { width: 100%; display:flex; gap:8px; justify-content: flex-end; }
+  .profile-avatar { width: 64px; height: 64px; }
+  .profile-title { width: calc(100% - 88px); }
+  .profile-name { white-space: normal; overflow: visible; color: #ffffff; }
+  .profile-department { white-space: normal; }
+  .field { padding: 8px 0; }
+}
+
+/* small accessibility tweaks */
+.profile-card .tnpco-submit-btn.small {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}

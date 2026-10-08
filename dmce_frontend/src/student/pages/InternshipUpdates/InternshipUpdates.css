@@ -1,0 +1,259 @@
+.internship-updates-page {
+  min-height: 100vh;
+  background-color: #f4f6f9;
+}
+
+.internship-main {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.internship-title {
+  color: #1e3a8a;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  margin-top: 2rem;
+}
+
+.internship-underline {
+  width: 100px;
+  height: 4px;
+  background-color: #facc15;
+  margin: 0 auto 2rem;
+  border-radius: 2px;
+}
+
+.internship-description {
+  text-align: center;
+  color: #444;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.internship-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2rem;
+}
+
+.add-internship-btn {
+  background-color: #1e40af;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.add-internship-btn:hover {
+  background-color: #1e3a8a;
+  transform: translateY(-2px);
+}
+
+.internship-empty-state {
+  background-color: white;
+  border-radius: 12px;
+  padding: 4rem 2rem;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.internship-empty-state .empty-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.7;
+}
+
+.internship-empty-state h3 {
+  color: #1e3a8a;
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.internship-empty-state p {
+  color: #666;
+}
+
+.success-toast {
+  background-color: #d1fae5;
+  color: #065f46;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px solid #10b981;
+  font-weight: 500;
+}
+
+.success-icon {
+  font-size: 1.25rem;
+}
+
+.fade-in {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.success-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.success-text p {
+  margin: 0.25rem 0 0 0;
+  font-size: 0.95rem;
+  color: #065f46;
+}
+
+.loading-state, .error-state {
+  text-align: center;
+  padding: 3rem;
+  background: white;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.error-state {
+  color: #dc2626;
+}
+
+.internships-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.internship-record-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border-left: 4px solid #1e40af;
+}
+
+.record-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.record-header h3 {
+  margin: 0;
+  color: #1e3a8a;
+  font-size: 1.3rem;
+}
+
+.record-role {
+  margin: 0 0 1rem 0;
+  color: #4b5563;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.record-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.detail-item {
+  color: #374151;
+  font-size: 0.95rem;
+}
+
+.detail-item strong {
+  color: #111827;
+}
+
+.status-badge {
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-pending {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.status-verified {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.status-rejected {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.rejection-reason {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #fef2f2;
+  border-left: 3px solid #ef4444;
+  color: #991b1b;
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+.record-documents {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.document-status {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.95rem;
+}
+
+.document-status strong {
+  color: #374151;
+  margin-bottom: 0.25rem;
+}
+
+.document-uploaded {
+  color: #065f46;
+}
+
+.document-link {
+  color: #2563eb;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.document-link:hover {
+  text-decoration: underline;
+}
+
+.document-missing {
+  color: #9ca3af;
+  font-style: italic;
+}
+
+.document-not-provided {
+  color: #6b7280;
+}

@@ -1,0 +1,256 @@
+.status-page {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #fdfbfb, #ebedee);
+  min-height: 100vh;
+  padding-bottom: 40px;
+}
+
+.status-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.status-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.status-title {
+  color: #1e1e3f;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.status-refresh-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #1e1e3f;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.status-refresh-btn:hover {
+  background-color: #2e2e5f;
+}
+
+.status-refresh-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.rotating {
+  animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.status-table-wrapper {
+  overflow-x: auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.status-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.status-table th,
+.status-table td {
+  padding: 14px 18px;
+  text-align: left;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.status-table th {
+  background-color: #1e1e3f;
+  color: #ffffff;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.status-table tr {
+  background-color: #ffffff;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.status-table tr:hover {
+  background-color: #f9f9f9;
+}
+
+.status-badge {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 600;
+  display: inline-block;
+  font-size: 0.85rem;
+  text-align: center;
+  min-width: 120px;
+}
+
+.status-underreview {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-selected {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-rejected {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.status-pending {
+  background-color: #e2e3e5;
+  color: #383d41;
+}
+
+.status-interview {
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+.status-error {
+  background-color: #fff5f7;
+  border: 1px solid #ffebef;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #d63031;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.status-error svg {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.status-error p {
+  margin: 10px 0;
+}
+
+.status-error button {
+  background-color: #d63031;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  margin-top: 10px;
+}
+
+.status-error button:hover {
+  background-color: #c02c2c;
+}
+
+.status-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: #6c757d;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  border: 1px dashed #dee2e6;
+}
+
+.status-empty-icon {
+  font-size: 42px;
+  margin-bottom: 15px;
+}
+
+.status-empty h3 {
+  color: #343a40;
+  margin: 0 0 10px;
+}
+
+.status-empty p {
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.status-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+.status-spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top: 4px solid #1e1e3f;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .status-container {
+    margin: 20px;
+    padding: 20px;
+  }
+
+  .status-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .status-title {
+    font-size: 1.6rem;
+  }
+
+  .status-refresh-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .status-table th,
+  .status-table td {
+    padding: 10px;
+    font-size: 0.85rem;
+  }
+
+  .status-badge {
+    font-size: 0.75rem;
+    padding: 5px 12px;
+    min-width: 100px;
+  }
+}

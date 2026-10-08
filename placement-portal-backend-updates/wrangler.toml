@@ -1,0 +1,16 @@
+name = "placement-portal-backend"
+main = "src/index.js"
+compatibility_date = "2025-04-27"
+[[d1_databases]]
+binding = "DB"
+database_name = "placement"
+database_id = "0c60bcbf-3847-4724-a6e8-6a7cb5d84df7"
+
+[[r2_buckets]]
+binding = "R2_BUCKET"
+bucket_name = "students"
+
+[vars]
+BREVO_API_KEY = "YOUR_BREVO_API_KEY"
+
+migrations_dir = "migrations"

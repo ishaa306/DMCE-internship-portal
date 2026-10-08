@@ -1,0 +1,18 @@
+name = "internship-backend"
+main = "src/index.js"
+compatibility_date = "2025-04-27"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "internships-db"
+database_id = "your-internships-db-id"
+migrations_dir = "migrations"
+
+[[r2_buckets]]
+binding = "STORAGE"
+bucket_name = "internship-documents"
+
+[vars]
+FRONTEND_ORIGIN = "http://localhost:5173"
+PORTAL_API_URL = "https://placement-portal-backend.ramshekade20.workers.dev"
+# PORTAL_AUTH_SECRET = "" # Do not hardcode secrets here. Use wrangler secret put PORTAL_AUTH_SECRET

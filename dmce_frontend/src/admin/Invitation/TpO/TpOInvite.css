@@ -1,0 +1,336 @@
+/* Scoped styles for TPO invite + list page.
+   Classes prefixed with tpo- to avoid collisions.
+*/
+
+/* Page */
+.tpo-page {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f4f6f9;
+    min-height: 100vh;
+    padding-bottom: 48px;
+}
+
+/* Status Bar - New Addition */
+.tpo-status-bar {
+    background: #1e3a8a;
+    color: white;
+    padding: 10px 24px;
+    width: 100%;
+}
+
+.tpo-status-info {
+    display: flex;
+    justify-content: flex-end;
+    gap: 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.tpo-status-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+}
+
+.tpo-status-icon {
+    opacity: 0.8;
+}
+
+/* Announcement */
+.tpo-announcement {
+    width: 100%;
+    max-width: 1400px;
+    background: #1e40af;
+    color: #fff;
+    font-weight: 600;
+    padding: 10px 0;
+    margin-top: 0.6rem;
+    text-align: center;
+}
+
+/* Main layout */
+.tpo-main {
+    width: 85%;
+    max-width: 900px;
+    margin: 6px auto 40px auto;
+}
+
+/* Card */
+.tpo-card {
+    background: linear-gradient(145deg, #ffffff, #f8fafc);
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(30, 30, 63, 0.08);
+    border: 1px solid rgba(30, 30, 63, 0.04);
+}
+
+/* Card title */
+.tpo-card-title {
+    margin: 0 0 12px 0;
+    font-size: 1.15rem;
+    color: #1e1e3f;
+    font-weight: 800;
+}
+
+/* Form */
+.tpo-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tpo-label {
+    font-weight: 700;
+    color: #0f172a;
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+}
+
+.tpo-required {
+    color: #dc2626;
+    margin-left: 6px;
+}
+
+.tpo-input {
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #e6e9f2;
+    background: #fff;
+    font-size: 15px;
+    color: #0f172a;
+    transition: box-shadow 160ms ease, border-color 160ms ease, transform 120ms ease;
+    outline: none;
+}
+
+.tpo-input::placeholder {
+    color: rgba(15, 23, 42, 0.35);
+}
+
+.tpo-input:focus {
+    border-color: #1e3a8a;
+    box-shadow: 0 8px 26px rgba(30, 58, 138, 0.06);
+    transform: translateY(-2px);
+}
+
+.tpo-input:disabled {
+    background: #f9fafb;
+    cursor: not-allowed;
+    color: #94a3b8;
+}
+
+/* Alerts */
+.tpo-alert {
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-weight: 700;
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tpo-alert-error {
+    background: #fff5f5;
+    color: #dc2626;
+    border: 1px solid rgba(220, 38, 38, 0.06);
+}
+
+.tpo-alert-success {
+    background: #f0fff6;
+    color: #059669;
+    border: 1px solid rgba(5, 150, 105, 0.06);
+}
+
+/* Form Actions */
+.tpo-form-actions {
+    margin-top: 12px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.tpo-btn {
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    font-weight: 700;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tpo-btn-primary {
+    background: linear-gradient(135deg, #1e1e3f, #2a2a5a);
+    color: #fff;
+    padding: 12px 18px;
+    box-shadow: 0 8px 24px rgba(30, 30, 63, 0.12);
+}
+
+.tpo-spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.tpo-btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.tpo-btn-secondary {
+    background: transparent;
+    border: 1px solid rgba(30, 30, 63, 0.06);
+    color: #0f172a;
+}
+
+/* List styles */
+.tpo-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.tpo-list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 10px;
+    background: linear-gradient(180deg, #ffffff, #fbfdff);
+    border: 1px solid rgba(15, 23, 42, 0.04);
+    box-shadow: 0 6px 18px rgba(12, 16, 30, 0.03);
+}
+
+.tpo-list-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.tpo-list-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #eef4ff, #e8eefb);
+    display: grid;
+    place-items: center;
+    color: #1e3a8a;
+    font-size: 28px;
+    border: 2px solid rgba(30, 58, 138, 0.06);
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.tpo-list-avatar-icon {
+    width: 46px;
+    height: 46px;
+    color: #1e3a8a;
+}
+
+.tpo-list-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.tpo-list-name {
+    font-weight: 800;
+    color: #0f172a;
+    font-size: 16px;
+    text-transform: capitalize;
+}
+
+.tpo-list-email {
+    font-size: 13px;
+    color: #475569;
+}
+
+.tpo-list-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.tpo-btn-delete {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    color: #dc2626;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 13px;
+    border: 1px solid rgba(220, 38, 38, 0.08);
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.04);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.tpo-btn-delete:hover {
+    transform: translateY(-2px);
+}
+
+.tpo-empty {
+    padding: 18px;
+    border-radius: 10px;
+    background: #fff;
+    color: #64748b;
+    text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .tpo-main {
+        width: 94%;
+    }
+
+    .tpo-list-avatar {
+        width: 48px;
+        height: 48px;
+    }
+}
+
+@media (max-width: 600px) {
+    .tpo-status-info {
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 8px;
+    }
+
+    .tpo-status-item {
+        font-size: 0.85rem;
+    }
+
+    .tpo-main {
+        width: 94%;
+        margin-top: 8px;
+    }
+
+    .tpo-card {
+        padding: 14px;
+    }
+
+    .tpo-list-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .tpo-list-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .tpo-btn {
+        width: auto;
+    }
+}

@@ -1,0 +1,371 @@
+/* Scoped styles for TPO Coordinator management (tpc- prefix) */
+
+/* Page */
+.tpc-page {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f4f6f9;
+  min-height: 100vh;
+  padding-bottom: 48px;
+}
+
+/* Announcement */
+.tpc-announcement {
+  width: 100%;
+  max-width: 1400px;
+  background: #1e40af;
+  color: #fff;
+  font-weight: 600;
+  padding: 10px 0;
+  margin-top: 0.6rem;
+  text-align: center;
+}
+
+/* Header */
+.tpc-header {
+  width: 85%;
+  max-width: 1400px;
+  margin: 18px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.tpc-profile {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.tpc-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #eef4ff, #e8eefb);
+  border: 3px solid #fff;
+  box-shadow: 0 6px 18px rgba(30,40,90,0.06);
+}
+
+.tpc-title { margin: 0; font-size: 1.4rem; font-weight: 800; color: #0f172a; }
+.tpc-sub { margin: 4px 0 0 0; color: #64748b; }
+
+/* Main area */
+.tpc-main { width: 85%; max-width: 1000px; margin: 6px auto 40px auto; }
+
+/* Card */
+.tpc-card {
+  background: linear-gradient(145deg,#ffffff,#f8fafc);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(30,30,63,0.08);
+  border: 1px solid rgba(30,30,63,0.04);
+}
+
+/* Titles */
+.tpc-card-title { margin: 0 0 12px 0; font-size: 1.15rem; color: #1e1e3f; font-weight:800; }
+
+/* Form */
+.tpc-form { display:flex; flex-direction:column; gap:12px; }
+.tpc-label { font-weight:700; color:#0f172a; font-size:0.95rem; margin-bottom:6px; }
+.tpc-required { color: #dc2626; margin-left:6px; }
+
+.tpc-input, .tpc-select {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #e6e9f2;
+  background: #fff;
+  font-size: 15px;
+  color: #0f172a;
+  transition: box-shadow 160ms ease, border-color 160ms ease, transform 120ms ease;
+  outline: none;
+}
+.tpc-input::placeholder { color: rgba(15,23,42,0.35); }
+.tpc-input:focus, .tpc-select:focus {
+  border-color: #1e3a8a;
+  box-shadow: 0 8px 26px rgba(30,58,138,0.06);
+  transform: translateY(-2px);
+}
+.tpc-input:disabled { background:#f9fafb; cursor:not-allowed; color:#94a3b8; }
+
+/* Alerts */
+.tpc-alert { padding: 12px 14px; border-radius: 10px; font-weight:700; margin-top:6px; }
+.tpc-alert-error { background: #fff5f5; color: #dc2626; border: 1px solid rgba(220,38,38,0.06); }
+.tpc-alert-success { background: #f0fff6; color: #059669; border: 1px solid rgba(5,150,105,0.06); }
+
+/* Buttons */
+.tpc-form-actions { margin-top: 12px; display:flex; gap:12px; align-items:center; }
+.tpc-btn { border: none; cursor: pointer; border-radius: 10px; font-weight: 700; padding: 10px 14px; }
+.tpc-btn-primary {
+  background: linear-gradient(135deg, #1e1e3f, #2a2a5a);
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(30,30,63,0.12);
+}
+.tpc-btn-secondary {
+  background: transparent;
+  border: 1px solid rgba(30,30,63,0.06);
+  color: #0f172a;
+  padding: 10px 14px;
+  border-radius: 10px;
+}
+
+/* List */
+.tpc-list { display:flex; flex-direction:column; gap:12px; margin-top:8px; }
+
+.tpc-list-item {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:12px;
+  border-radius:10px;
+  background: linear-gradient(180deg,#ffffff,#fbfdff);
+  border:1px solid rgba(15, 23, 42, 0.547);
+  box-shadow:0 6px 18px rgba(12,16,30,0.03);
+}
+
+/* Left side */
+.tpc-list-left { display:flex; align-items:center; gap:12px; }
+.tpc-list-avatar {
+  width:56px; height:56px; border-radius:50%;
+  background: linear-gradient(135deg,#eef4ff,#e8eefb);
+  display:grid; place-items:center; color:#1e3a8a; font-size:28px;
+  border:2px solid rgba(30,58,138,0.06); flex-shrink:0; overflow:hidden;
+}
+.tpc-list-avatar img { width:100%; height:100%; object-fit:cover; }
+.tpc-list-avatar-icon { width:46px; height:46px; color:#1e3a8a; }
+
+.tpc-list-info { display:flex; flex-direction:column; gap:4px; }
+.tpc-list-name { font-weight:800; color:#0f172a; font-size:16px; text-transform:capitalize; }
+.tpc-list-branch { font-size:13px; color:#64748b; font-weight:600; }
+.tpc-list-email { font-size:13px; color:#475569; }
+
+/* Actions */
+.tpc-list-actions { display:flex; gap:8px; align-items:center; }
+.tpc-btn-edit {
+  display:inline-flex; align-items:center; gap:8px;
+  background: linear-gradient(90deg, #1e3a8a, #3a5ad0); color:#fff;
+  padding:8px 12px; border-radius:8px; font-weight:700; font-size:13px; border:none;
+  box-shadow:0 8px 18px rgba(30,58,138,0.12);
+}
+.tpc-btn-delete {
+  display:inline-flex; align-items:center; gap:8px;
+  background:#fff; color:#dc2626; padding:8px 12px; border-radius:8px; font-weight:700; font-size:13px;
+  border:1px solid rgba(220,38,38,0.08); box-shadow:0 4px 12px rgba(220,38,38,0.04);
+}
+
+/* Empty */
+.tpc-empty { padding:18px; border-radius:10px; background:#fff; color:#64748b; text-align:center; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .tpc-main, .tpc-header { width:94%; }
+  .tpc-list-avatar { width:48px; height:48px; }
+}
+
+@media (max-width: 600px) {
+  .tpc-header { flex-direction:column; align-items:flex-start; gap:10px; width:94%; }
+  .tpc-main { width:94%; margin-top:8px; }
+  .tpc-card { padding:14px; }
+  .tpc-list-item { flex-direction:column; align-items:flex-start; gap:10px; }
+  .tpc-list-actions { width:100%; justify-content:flex-end; }
+}
+
+/* Add to your existing CSS if not present */
+.tpc-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Base */
+.tpc-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f6f7fb 0%, #f8fafc 100%);
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Status Bar */
+.tpc-status-bar {
+  background: #1e3a8a;
+  padding: 10px 24px;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.tpc-status-info {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  gap: 24px;
+}
+
+.tpc-status-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+.tpc-status-icon {
+  opacity: 0.8;
+}
+
+/* Announcement */
+.tpc-announcement {
+  width: 85%;
+  max-width: 1400px;
+  background: #1e40af;
+  color: #fff;
+  font-weight: 600;
+  padding: 12px 24px;
+  margin: 20px auto;
+  text-align: center;
+  border-radius: 10px;
+}
+
+/* Header */
+.tpc-header {
+  width: 85%;
+  max-width: 1400px;
+  margin: 24px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tpc-profile {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.tpc-title {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.tpc-sub {
+  margin: 5px 0 0;
+  color: #64748b;
+  font-size: 1rem;
+}
+
+/* Main Content */
+.tpc-main {
+  width: 85%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-bottom: 40px;
+}
+
+.tpc-card {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.tpc-card-title {
+  margin: 0 0 24px;
+  font-size: 1.4rem;
+  color: #1e293b;
+  font-weight: 600;
+}
+
+/* Form */
+.tpc-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tpc-label {
+  font-weight: 500;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tpc-required {
+  color: #dc2626;
+}
+
+.tpc-input,
+.tpc-select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  color: #1e293b;
+  transition: all 0.2s ease;
+}
+
+.tpc-input:focus,
+.tpc-select:focus {
+  outline: none;
+  border-color: #1e3a8a;
+  box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+}
+
+.tpc-select {
+  background-color: white;
+}
+
+/* Alerts */
+.tpc-alert {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+.tpc-alert-error {
+  background: #fee2e2;
+  color: #dc2626;
+  border-left: 4px solid #dc2626;
+}
+
+.tpc-alert-success {
+  background: #dcfce7;
+  color: #059669;
+  border-left: 4px solid #059669;
+}
+
+/* Buttons */
+.tpc-form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.tpc-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}

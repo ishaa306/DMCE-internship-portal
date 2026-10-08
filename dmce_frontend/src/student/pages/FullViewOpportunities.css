@@ -1,0 +1,442 @@
+.fullview-bg {
+    min-height: 100vh;
+    background: #f3f4f6;
+    display: flex;
+    flex-direction: column;
+}
+
+.fv-container {
+    max-width: 1000px;
+    margin: 2rem auto;
+    background: #fff;
+    border-radius: 1.2rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e5e7eb;
+    overflow: hidden;
+    width: 95%;
+}
+
+.fv-header {
+    background-color: #071168;
+    color: #fff;
+    padding: 2.3rem 1.5rem 2rem 1.5rem;
+    text-align: center;
+}
+
+.fv-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 0.01em;
+}
+
+.fv-header p {
+    margin-top: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.fv-content {
+    padding: 2.1rem 2.2rem 2.2rem 2.2rem;
+}
+
+.fv-section h2 {
+    font-size: 1.25rem;
+    color: #071168;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.fv-section p {
+    color: #374151;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    white-space: pre-line;
+}
+
+.fv-details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 1.1rem 1.2rem;
+    margin-bottom: 2.5rem;
+}
+
+.fv-detail {
+    background: #f9fafb;
+    padding: 1rem 1.2rem;
+    border-radius: 0.85rem;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.fv-detail span:first-child {
+    font-weight: 600;
+    color: #6366f1;
+    margin-bottom: 0.1rem;
+    font-size: 1.01rem;
+}
+
+.fv-detail span:last-child {
+    color: #374151;
+    font-size: 1.01rem;
+    font-weight: 500;
+    word-break: break-word;
+}
+
+.fv-apply-ctn {
+    text-align: center;
+    margin-top: 2.2rem;
+}
+
+.fv-apply-btn {
+    background-color: #071168;
+    color: #fff;
+    padding: 0.82rem 2.2rem;
+    font-size: 1.11rem;
+    font-weight: 600;
+    border-radius: 0.6rem;
+    border: none;
+    box-shadow: 0 3px 18px #6366f13a;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.18s;
+    letter-spacing: 0.01em;
+}
+
+.fv-apply-btn:hover {
+    background-color: #5f6bd8;
+    transform: translateY(-3px) scale(1.04);
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+    .fv-container {
+        margin: 1rem auto;
+    }
+    
+    .fv-content {
+        padding: 1.5rem 1.5rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .fv-container {
+        margin: 0.5rem auto;
+        border-radius: 0.8rem;
+    }
+    
+    .fv-header {
+        padding: 1.3rem 0.7rem 1.1rem 0.7rem;
+    }
+    
+    .fv-header h1 {
+        font-size: 1.3rem;
+    }
+    
+    .fv-header p {
+        font-size: 0.9rem;
+    }
+    
+    .fv-content {
+        padding: 1.2rem 1rem;
+    }
+    
+    .fv-details-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 0.7rem 0.7rem;
+    }
+    
+    .fv-detail {
+        padding: 0.8rem 0.9rem;
+        border-radius: 0.55rem;
+    }
+    
+    .fv-section h2 {
+        font-size: 1.1rem;
+    }
+    
+    .fv-section p {
+        font-size: 0.97rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .fv-detail span:first-child {
+        font-size: 0.95rem;
+    }
+    
+    .fv-detail span:last-child {
+        font-size: 0.95rem;
+    }
+    
+    .fv-apply-btn {
+        font-size: 1rem;
+        padding: 0.7rem 1.5rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .fv-content {
+        padding: 1rem 0.7rem;
+    }
+    
+    .fv-details-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .fv-header h1 {
+        font-size: 1.1rem;
+    }
+}
+
+/* Add these styles to your existing FullViewOpportunities.css file */
+
+.fv-eli/* Add these styles to your existing FullViewOpportunities.css file */
+
+.fv-eligibility-message {
+    background-color: #fee2e2;
+    border: 1px solid #fecaca;
+    border-radius: 0.75rem;
+    padding: 1rem 1.5rem;
+    color: #b91c1c;
+    margin-bottom: 2rem;
+}
+
+.fv-eligibility-message p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.fv-eligibility-message p:first-child {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.fv-apply-btn-disabled {
+    background-color: #9ca3af !important;
+    cursor: not-allowed !important;
+    opacity: 0.7;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.fv-apply-btn-disabled:hover {
+    background-color: #9ca3af !important;
+    transform: none !important;
+}
+
+.fv-error-message {
+    background-color: #fff7ed;
+    border: 1px solid #ffedd5;
+    border-radius: 0.75rem;
+    padding: 0.75rem 1.2rem;
+    color: #c2410c;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.fv-error-message p {
+    margin: 0;
+}
+
+/* Add these to your FullViewOpportunities.css file */
+
+.fv-refresh-btn {
+    background: none;
+    border: none;
+    color: #047857;
+    font-size: 0.8rem;
+    padding: 4px 8px;
+    margin-top: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: underline;
+}
+
+.fv-refresh-btn:hover {
+    color: #065f46;
+}
+
+.fv-success-message {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Toast notification styles */
+.fv-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 16px;
+  min-width: 300px;
+  max-width: 400px;
+  z-index: 1000;
+  transform: translateX(120%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.fv-notification-show {
+  transform: translateX(0);
+}
+
+.fv-notification-icon {
+  font-size: 24px;
+  margin-right: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: white;
+}
+
+.fv-notification-success .fv-notification-icon {
+  background-color: #10b981;
+}
+
+.fv-notification-error .fv-notification-icon {
+  background-color: #ef4444;
+}
+
+.fv-notification-info .fv-notification-icon {
+  background-color: #3b82f6;
+}
+
+.fv-notification-content {
+  flex-grow: 1;
+}
+
+.fv-notification-content h4 {
+  margin: 0 0 4px 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.fv-notification-content p {
+  margin: 0;
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.fv-notification-success {
+  border-left: 4px solid #10b981;
+}
+
+.fv-notification-error {
+  border-left: 4px solid #ef4444;
+}
+
+.fv-notification-info {
+  border-left: 4px solid #3b82f6;
+}
+
+/* Add these to your ViewApplicants.css file */
+
+.applicant-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  color: #1e1e3f;
+}
+
+.applicant-loading-spinner {
+  border: 4px solid rgba(30, 30, 63, 0.1);
+  border-radius: 50%;
+  border-top: 4px solid #1e1e3f;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.applicant-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  padding: 30px;
+  background-color: #fff5f7;
+  border-radius: 16px;
+}
+
+.applicant-error-icon {
+  font-size: 42px;
+  margin-bottom: 20px;
+}
+
+.applicant-error h3 {
+  color: #e53e3e;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.applicant-error p {
+  color: #4a5568;
+  margin-bottom: 20px;
+  text-align: center;
+  max-width: 600px;
+}
+
+.applicant-error button,
+.applicant-refresh-btn {
+  background-color: #1e1e3f;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.applicant-error button:hover,
+.applicant-refresh-btn:hover {
+  background-color: #2e2e5f;
+  transform: translateY(-1px);
+}
+
+.applicant-status-select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  background-color: white;
+  font-size: 0.85rem;
+  width: 130px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.applicant-status-select:hover {
+  border-color: #1e1e3f;
+}
+
+.applicant-status-select:focus {
+  outline: none;
+  border-color: #1e1e3f;
+  box-shadow: 0 0 0 3px rgba(30, 30, 63, 0.1);
+}
+
+.applicant-actions-cell {
+  text-align: center;
+}

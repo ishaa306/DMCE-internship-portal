@@ -1,0 +1,525 @@
+/* Base styles */
+.role-home {
+  font-family: 'Arial', sans-serif;
+  color: #333;
+}
+
+/* Hero section */
+.hero {
+  background-size: cover;
+  background-position: center;
+  height: 75vh;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.hero-content {
+  position: relative;
+  text-align: center;
+  color: white;
+  max-width: 1300px;
+  width: 100%;
+  padding: 0 20px;
+  z-index: 5;
+}
+
+.hero-title {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  color: rgba(122, 87, 87, 0.763);
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  max-width: 800px;
+  margin: 0 auto 40px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  line-height: 1.6;
+}
+
+/* Role cards */
+.role-card-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: nowrap;
+  position: relative;
+  z-index: 10;
+  max-width: 1300px;
+  width: 100%;
+  margin: 170px auto 0;
+}
+
+.role-card-container.tablet {
+  flex-wrap: wrap;
+  gap: 25px;
+}
+
+.role-card-container.mobile {
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-top: 120px;
+  margin-bottom: 20px;
+}
+
+.role-card {
+  background-color: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  border: 2px solid #1e1e3f;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  padding: 20px 10px;
+  text-align: center;
+  width: 170px;
+  height: 8.7rem;
+  flex-shrink: 0;
+  margin-left: 4rem;
+}
+
+.role-card:hover {
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  border-color: #3a3a7a;
+}
+
+.card-icon {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: #000003;
+  transition: all 0.3s ease;
+}
+
+.card-title {
+  font-size: 1rem;
+  margin-bottom: 5px;
+  transition: all 0.3s ease;
+}
+
+.card-description {
+  font-size: 0.7rem;
+  font-weight: normal;
+  margin-top: 5px;
+  opacity: 0.9;
+  transition: all 0.3s ease;
+}
+
+/* Scroll prompt */
+.scroll-prompt {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: transparent;
+  color: #f9f9f9;
+  font-size: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  align-items: center;
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.scroll-prompt.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.scroll-prompt span {
+  margin-bottom: 8px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.bounce-icon {
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+
+  40% {
+    transform: translateY(-10px);
+  }
+
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Recruiters section */
+.recruiters-section {
+  padding: 40px 20px;
+  background-color: #f9f9f9;
+}
+
+.section-container {
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: 1.6rem;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #1e1e3f;
+  font-weight: bold;
+  position: relative;
+  display: flex;
+  padding: 0 0 10px 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 60px;
+  height: 3px;
+  background-color: #ffA500;
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+.section-description {
+  max-width: 1000px;
+  margin: 0 auto 30px;
+  color: #555;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin-top: 30px;
+}
+
+.company-logo {
+  height: 50px;
+  filter: grayscale(100%);
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+/* Footer */
+.footer {
+  background-color: #1e1e3f;
+  color: white;
+  padding: 30px 20px 10px;
+  text-align: center;
+}
+
+.recruiters-title {
+  text-align: center;
+  font-size: 1.37rem;
+  color: #1e3a8a;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin-bottom: 18px;
+}
+
+.logos-marquee {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+  padding: 20px 0;
+}
+
+.logos-marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 54px;
+  animation: scroll-left 15s linear infinite;
+}
+
+.recruiter-logo {
+  height: 56px;
+  width: auto;
+  filter: grayscale(0.15);
+  opacity: 0.92;
+  background: #f1f5f9;
+  border-radius: 13px;
+  box-shadow: 0 2px 10px #1e3a8a0a;
+  transition: all 0.3s ease;
+}
+
+.recruiter-logo:hover {
+  filter: grayscale(0);
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Animation for marquee */
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-33.33%);
+  }
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 30px;
+}
+
+.footer-column {
+  text-align: left;
+  flex: 1;
+}
+
+.footer-title {
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+}
+
+.footer-text {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  opacity: 0.8;
+  max-width: 400px;
+}
+
+.linkedin-link {
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+  width: fit-content;
+  transition: color 0.2s ease;
+}
+
+.linkedin-link:hover {
+  color: #0a66c2;
+  /* LinkedIn blue color */
+}
+
+.footer-copyright {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 20px;
+  padding-top: 20px;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+  .role-card {
+    width: 160px;
+    padding: 20px 10px;
+  }
+
+  .card-icon {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .role-card-container {
+    gap: 15px;
+  }
+
+  .role-card {
+    width: 150px;
+    padding: 15px 10px;
+  }
+
+  .card-icon {
+    font-size: 2rem;
+  }
+
+  .card-title {
+    font-size: 0.9rem;
+  }
+
+  .card-description {
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .role-card-container {
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 120px;
+  }
+
+  .role-card {
+    width: 160px;
+  }
+}
+
+@media (max-width: 768px) {
+
+  /* Main hero container adjustments */
+  .hero {
+    height: auto;
+    min-height: 80vh;
+    padding: 60px 0 40px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  /* Card layout for roles */
+  .role-card-container.mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    margin: 100px auto 20px;
+    gap: 12px;
+  }
+
+  .role-card {
+    width: 100%;
+    max-width: 280px;
+    padding: 10px 20px;
+    height: auto;
+    min-height: 70px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: left;
+    transition: transform 0.3s;
+  }
+
+  .role-card:hover {
+    transform: translateY(-3px) !important;
+  }
+
+  .card-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0;
+    margin-right: 15px;
+  }
+
+  .card-title {
+    font-size: 1rem;
+    margin-bottom: 0;
+  }
+
+  .card-description {
+    display: none;
+  }
+
+  /* Scroll down prompt */
+  .scroll-prompt {
+    display: none;
+  }
+
+  /* Footer adjustments */
+  .footer-content {
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-column {
+    text-align: center;
+  }
+
+  .footer-text {
+    margin: 0 auto;
+  }
+
+  .linkedin-link {
+    margin: 10px auto 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    min-height: 70vh;
+  }
+
+  .role-card-container.mobile {
+    margin-top: 80px;
+    width: 50%;
+    margin-left: 2.5rem;
+  }
+
+  .role-card {
+    padding: 12px 15px;
+    max-width: 260px;
+    min-height: 60px;
+  }
+
+  .card-icon {
+    font-size: 1.7rem;
+    margin-right: 12px;
+  }
+
+  .card-title {
+    font-size: 1.9rem;
+  }
+
+  .section-title {
+    font-size: 1.4rem;
+  }
+
+  .section-description {
+    font-size: 0.9rem;
+  }
+
+  .logos-marquee {
+    padding: 10px 0;
+  }
+
+  .recruiter-logo {
+    height: 45px;
+  }
+}

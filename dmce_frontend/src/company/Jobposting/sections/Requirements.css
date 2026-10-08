@@ -1,0 +1,163 @@
+.req-container {
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  border: 1px solid #ccc;
+}
+
+.req-title {
+  background: #1e1e3f;
+  color: #fff;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 12px 20px;
+  border-radius: 8px 8px 0 0;
+  margin-bottom: 25px;
+}
+
+.req-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.req-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.req-group label {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #1e1e3f;
+}
+
+.req-group input,
+.req-group select {
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fff;
+  color: #000;
+}
+
+.req-dropdown {
+  position: relative;
+}
+
+.req-dropdown-box {
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 6px;
+  min-height: 44px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  cursor: pointer;
+}
+
+.req-chevron {
+  font-size: 14px;
+  color: #555;
+  margin-left: 8px;
+}
+
+.req-branch-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.req-tag {
+  background-color: #1e1e3f;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.req-tag span {
+  margin-left: 6px;
+  cursor: pointer;
+}
+
+.req-placeholder {
+  color: #999;
+  font-size: 14px;
+}
+
+.req-dropdown-list {
+  position: absolute;
+  width: 100%;
+  max-height: 150px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  background: white;
+  z-index: 100;
+  border-radius: 6px;
+  margin-top: 4px;
+}
+
+.req-dropdown-item {
+  padding: 10px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+}
+
+.req-dropdown-item:hover {
+  background-color: #f0f0f0;
+}
+
+.req-dropdown-item.disabled {
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.req-btn-wrap {
+  margin-top: 30px;
+  text-align: center;
+}
+.input-error {
+  color: #e53935;
+  font-size: 13px;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.req-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+.req-btn {
+  padding: 12px 30px;
+  background-color: #1e1e3f;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(30, 30, 63, 0.2);
+}
+
+.req-btn:hover {
+  background-color: #252570;
+}
+
+/* Add this media query at the end of your Requirements.css file */
+@media (max-width: 768px) {
+  .req-btn {
+    display: none !important;
+  }
+}

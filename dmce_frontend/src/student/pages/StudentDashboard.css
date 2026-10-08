@@ -1,0 +1,156 @@
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f4f6f9;
+    
+  }
+
+  .student-dashboard {
+    min-height: 50rem;
+    background: #f4f6f9;
+    margin-bottom: 1rem;
+  }
+
+  .announcement-strip {
+    background-color: #1e40af;
+    color: white;
+    padding: 10px 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 0.4rem;
+  }
+
+  .dashboard-header {
+    background-color: #09136d;
+    color: white;
+    border-radius: 20px;
+    padding: 1.5rem 2rem;
+    width: 85%;
+    max-width: 1600px;
+    margin: 2rem auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .profile-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .profile-pic {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    object-fit: cover;
+  }
+
+  .text-info h2 {
+    margin: 0;
+    font-size: 1.6rem;
+  }
+
+  .text-info p {
+    margin: 5px 0 0 0;
+    font-size: 1rem;
+  }
+
+  .logout-button {
+    background-color: #e70303;
+    color: white;
+    border: none;
+    padding: 0.7rem 1.4rem;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-top: 1rem;
+  }
+
+  .logout-button:hover {
+    background-color: #e06969;
+  }
+
+  .card-grid {
+    width: 85%;
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .dashboard-card {
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    padding: 2rem;
+    width: 100%;
+    max-width: 380rem;
+    flex: 1 1 30%;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .dashboard-card:hover {
+    background-color: #eef3ff;
+    transform: translateY(-6px);
+  }
+
+  .dashboard-card h3 {
+    font-size: 1.4rem;
+    color: #1e3a8a;
+    margin-bottom: 0.6rem;
+  }
+
+  .dashboard-card p {
+    font-size: 1rem;
+    color: #444;
+  }
+
+  /* Responsive layout */
+  @media (max-width: 768px) {
+    .dashboard-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .card-grid {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .dashboard-card {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+
+  .banner-container {
+    width: 100%;
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+
+  .banner-image {
+    width: 100%;
+    max-width: 1500px;
+    height: auto;
+    border-radius: 0px;
+    display: block;
+    margin: auto;
+  }
+
+  @media (max-width: 768px) {
+    .banner-container {
+      display: none;
+    }
+  }

@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS students_login (
+  gr_number TEXT UNIQUE NOT NULL PRIMARY KEY,
+  email TEXT NOT NULL,
+  password_hash TEXT NOT NULL,
+  password_updated BOOLEAN DEFAULT 0,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);

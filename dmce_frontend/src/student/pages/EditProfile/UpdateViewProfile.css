@@ -1,0 +1,243 @@
+body {
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f8fafc;
+  color: #1f2937;
+}
+
+.uvp-profile-container {
+  max-width: 1800px;
+  /* margin: 20px auto; */
+  background: #f8fafc;
+  min-height: 100vh;
+}
+
+.uvp-profile-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(30, 30, 63, 0.08);
+  border: 1px solid rgba(30, 30, 63, 0.1);
+  overflow: hidden;
+  min-height: 600px;
+  margin: 20px;
+}
+
+.uvp-profile-header {
+  background: #1e1e3f;
+  color: white;
+  padding: 25px 40px;
+  text-align: center;
+}
+
+.uvp-profile-header h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.uvp-nav-tabs {
+  display: flex;
+  background: #f8fafc;
+  border-bottom: 2px solid #e2e8f0;
+  overflow-x: auto;
+}
+
+.uvp-nav-tab {
+  flex: 1;
+  padding: 14px 15px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: #64748b;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  min-width: 140px;
+}
+
+.uvp-nav-tab:hover {
+  background: #f1f5f9;
+  color: #1e1e3f;
+}
+
+.uvp-nav-tab.active {
+  background: #ffffff;
+  color: #1e1e3f;
+  border-bottom: 3px solid #1e1e3f;
+}
+
+.uvp-profile-content {
+  padding: 30px 40px;
+  background: #ffffff;
+}
+
+.uvp-content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.uvp-content-single {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.uvp-section {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 25px;
+  border: 1px solid #e2e8f0;
+}
+
+.uvp-section-title {
+  color: #1e1e3f;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.uvp-item {
+  margin-bottom: 15px;
+  padding: 15px;
+  background: #ffffff;
+  border-radius: 8px;
+  border-left: 4px solid #1e1e3f;
+}
+
+.uvp-item-label {
+  font-weight: 600;
+  color: #1e1e3f;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.uvp-edit-input {
+  width: 100%;
+  padding: 10px 13px;
+  font-size: 15px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 7px;
+  background: #f3f4f6;
+  color: #1e1e3f;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.uvp-edit-input:focus {
+  border-color: #10b981;
+  background: #fff;
+  outline: none;
+}
+
+.uvp-file-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: #1e1e3f;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+/* Add these mobile-specific styles to your existing CSS file */
+
+/* For fade-in animation (if not already defined) */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Make tabs scrollable without scrollbar on mobile */
+.uvp-nav-tabs {
+  -ms-overflow-style: none;  /* For Internet Explorer and Edge */
+  scrollbar-width: none;  /* For Firefox */
+  scroll-behavior: smooth;
+}
+
+.uvp-nav-tabs::-webkit-scrollbar {
+  display: none;  /* For Chrome, Safari and Opera */
+}
+
+/* Mobile responsive styles */
+@media screen and (max-width: 767px) {
+  .uvp-profile-card {
+    margin: 10px;
+    border-radius: 12px;
+  }
+  
+  .uvp-profile-header {
+    padding: 15px 20px;
+  }
+  
+  .uvp-profile-header h2 {
+    font-size: 22px;
+  }
+  
+  .uvp-nav-tab {
+    min-width: 80px;
+    padding: 12px 8px;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .uvp-nav-tab svg {
+    font-size: 18px;
+    margin-bottom: 2px;
+  }
+  
+  .uvp-profile-content {
+    padding: 15px 15px;
+  }
+  
+  /* Make buttons full width on mobile */
+  .uvp-edit-button, 
+  .uvp-file-link {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+/* Very small screens - show only icons in tabs */
+@media screen and (max-width: 480px) {
+  .uvp-profile-header h2 {
+    font-size: 20px;
+  }
+  
+  .uvp-nav-tab span:not(:first-child) {
+    display: none;
+  }
+  
+  .uvp-nav-tab svg {
+    font-size: 20px;
+    margin-bottom: 0;
+  }
+  
+  .uvp-nav-tab.active span:not(:first-child) {
+    display: block;
+    font-size: 9px;
+    margin-top: 3px;
+  }
+  
+  .uvp-profile-content {
+    padding: 12px 10px;
+  }
+}

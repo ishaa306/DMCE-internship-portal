@@ -1,0 +1,212 @@
+/* Reset & Root (component-scoped naming to avoid conflicts) */
+.comp-login-wrapper * {
+  box-sizing: border-box;
+}
+
+.comp-root, html, body, #root {
+  height: 100%;
+  width: 100%;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Error styles (component-prefixed) */
+.comp-input-error {
+  border: 1px solid #ff4d4f !important;
+  background-color: #fff2f0;
+}
+
+.comp-field-error {
+  color: #ff4d4f;
+  font-size: 12px;
+  padding: 0;
+  text-align: left;
+  margin-top: 6px;
+}
+
+/* Layout wrapper */
+.comp-login-wrapper {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  background-color: #ffffff;
+}
+
+/* Left Section */
+.comp-left-panel {
+  flex: 1;
+  background-color: #121633;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  clip-path: ellipse(100% 100% at 0% 50%);
+  padding: 2rem;
+  text-align: center;
+}
+
+.comp-logo {
+  width: 120px;
+  margin-bottom: 1rem;
+}
+
+/* Right Section */
+.comp-right-panel {
+  flex: 1;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+/* Login form */
+.comp-login-form {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 0 40px rgba(21, 60, 214, 0.534);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.comp-login-form h2 {
+  margin-bottom: 1.5rem;
+  color: #000;
+}
+
+.comp-login-form input[type="text"],
+.comp-login-form input[type="password"],
+.comp-login-form input[type="email"] {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #d4dff3;
+  color: black;
+}
+
+/* Password Field with Eye Icon */
+.comp-password-field {
+  position: relative;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.comp-password-field input {
+  width: 100%;
+  padding: 0.8rem;
+  padding-right: 3rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #d4dff3;
+  color: black;
+  margin-bottom: 0;
+}
+
+.comp-password-toggle-btn {
+  position: absolute;
+  right: 10px;
+  top: 30%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #121633;
+  font-size: 1.2rem;
+  padding: 0.3rem;
+}
+
+.comp-password-toggle-btn:hover {
+  color: #3b82f6;
+}
+
+.comp-login-form input::placeholder {
+  color: black;
+}
+
+/* Forgot link */
+.comp-forgot-password-link {
+  text-align: right;
+  margin-top: 5px;
+}
+
+.comp-forgot-password-link a {
+  font-size: 0.9rem;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.comp-forgot-password-link a:hover {
+  text-decoration: underline;
+}
+
+/* Buttons and messages */
+.comp-login-btn {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #1e3a8a;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.comp-login-btn:hover {
+  background-color: #3b82f6;
+}
+
+.comp-error {
+  color: red;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+/* Announcement bar */
+.comp-announcement-bar {
+  background-color: #1e1e3f;
+  color: white;
+  padding: 10px 0;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .comp-login-wrapper {
+    flex-direction: column;
+  }
+
+  .comp-left-panel {
+    clip-path: none;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    padding: 1rem;
+  }
+
+  .comp-right-panel {
+    padding: 1rem;
+  }
+
+  .comp-login-form {
+    max-width: 90%;
+  }
+}
+
+/* small tweaks for very small screens */
+@media (max-width: 420px) {
+  .comp-login-form {
+    padding: 1.25rem;
+  }
+
+  .comp-logo {
+    width: 100px;
+  }
+}

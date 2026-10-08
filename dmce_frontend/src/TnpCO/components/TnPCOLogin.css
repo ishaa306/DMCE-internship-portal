@@ -1,0 +1,206 @@
+/* Reset & Root */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Wrapper (mapped from original login-wrapper) */
+.tnpco-login-wrapper {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  background-color: #ffffff;
+}
+
+/* Left Section (mapped from original left-panel) */
+.tnpco-left-panel {
+  flex: 1;
+  background-color: #121633;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  clip-path: ellipse(100% 100% at 0% 50%);
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Logo inside left panel (mapped from .left-panel .logo) */
+.tnpco-logo {
+  width: 120px;
+  margin-bottom: 1rem;
+}
+
+/* Right Section (mapped from original right-panel) */
+.tnpco-right-panel {
+  flex: 1;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+/* Card container (mapped from original login-form) */
+.tnpco-login-container {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 0 40px rgba(21, 60, 214, 0.534);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* Title inside card */
+.tnpco-login-container h2,
+.tnpco-title {
+  margin-bottom: 1.5rem;
+  color: #000;
+}
+
+/* Inputs inside card (mapped from .login-form input) */
+.tnpco-input,
+.tnpco-login-container input,
+.tnpco-login-form input {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #d4dff3;
+  color: black;
+  box-sizing: border-box;
+}
+
+/* Password Field with Eye Icon (mapped) */
+.tnpco-password-field,
+.password-field {
+  position: relative;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+/* Specific password input override to keep parity */
+.tnpco-password-field .tnpco-input {
+  padding-right: 3rem;
+  margin-bottom: 0;
+}
+
+/* Password toggle button (mapped from password-toggle-btn) */
+.tnpco-password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #121633;
+  font-size: 1.2rem;
+  padding: 0.3rem;
+}
+
+.tnpco-password-toggle:hover {
+  color: #3b82f6;
+}
+
+/* Placeholder color */
+.tnpco-input::placeholder {
+  color: black;
+}
+
+/* Submit button (mapped from login-btn) */
+.tnpco-submit-btn,
+.tnpco-login-button,
+.login-btn {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #1e3a8a;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.tnpco-submit-btn:hover,
+.login-btn:hover {
+  background-color: #3b82f6;
+}
+
+/* Error styling (mapped) */
+.tnpco-error,
+.error {
+  color: red;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+/* Forgot password link mapping */
+.tnpco-forgot-password,
+.forgot-password-link {
+  text-align: right;
+  margin-top: 5px;
+}
+
+.tnpco-forgot-password a,
+.forgot-password-link a {
+  font-size: 0.9rem;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.tnpco-forgot-password a:hover,
+.forgot-password-link a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design (mapped) */
+@media (max-width: 768px) {
+  .tnpco-login-wrapper {
+    flex-direction: column;
+  }
+
+  .tnpco-left-panel {
+    clip-path: none;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    padding: 1rem;
+  }
+
+  .tnpco-right-panel {
+    padding: 1rem;
+  }
+
+  .tnpco-login-container {
+    max-width: 90%;
+  }
+
+  .tnpco-forgot-password {
+    text-align: right;
+    margin-top: 5px;
+  }
+
+  .tnpco-forgot-password a {
+    font-size: 0.9rem;
+    color: #007bff;
+    text-decoration: none;
+  }
+
+  .tnpco-forgot-password a:hover {
+    text-decoration: underline;
+  }
+}

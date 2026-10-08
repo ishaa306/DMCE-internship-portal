@@ -1,0 +1,237 @@
+/* Main Container */
+.create-announcement-container {
+  background-color: #f4f6f9;
+  min-height: 100vh;
+  padding-bottom: 2rem;
+}
+
+.announcement-form-container {
+  width: 90%;
+  max-width: 1000px;
+  margin: 1rem auto;
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+}
+
+.announcement-form-container h1 {
+  color: #1e3a8a;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Form Styling */
+.announcement-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-size: 1rem;
+}
+
+.announcement-title-input {
+  padding: 0.8rem;
+  border-radius: 8px;
+  border: 1px solid #d4dff3;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.announcement-title-input:focus {
+  border-color: #1e3a8a;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(30, 58, 138, 0.2);
+}
+
+/* Rich Text Editor */
+.rich-text-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  padding: 0.5rem;
+  background-color: #f0f4f8;
+  border: 1px solid #d4dff3;
+  border-bottom: none;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.rich-text-toolbar button {
+  background: transparent;
+  border: 1px solid #d4dff3;
+  border-radius: 4px;
+  padding: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  transition: all 0.2s ease;
+}
+
+.rich-text-toolbar button:hover {
+  background-color: #e2e8f0;
+  color: #1e3a8a;
+}
+
+.toolbar-divider {
+  width: 1px;
+  height: 24px;
+  background-color: #d4dff3;
+  margin: 0 0.3rem;
+}
+
+.rich-text-editor {
+  min-height: 250px;
+  padding: 1rem;
+  border: 1px solid #d4dff3;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  font-size: 1rem;
+  line-height: 1.5;
+  overflow-y: auto;
+  background-color: #fff;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.rich-text-editor:focus {
+  outline: none;
+  border-color: #1e3a8a;
+  box-shadow: 0 2px 0 rgba(30, 58, 138, 0.2);
+}
+
+.editor-note {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: #6b7280;
+  font-style: italic;
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.cancel-btn {
+  padding: 0.7rem 1.5rem;
+  background-color: #f3f4f6;
+  color: #4b5563;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cancel-btn:hover {
+  background-color: #e5e7eb;
+}
+
+.announce-btn {
+  padding: 0.7rem 1.5rem;
+  background-color: #1e3a8a;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.announce-btn:hover {
+  background-color: #3b82f6;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(59, 130, 246, 0.25);
+}
+
+.announce-btn:active {
+  transform: translateY(0);
+}
+
+.announce-btn:disabled,
+.cancel-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Status Messages */
+.announcement-error {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  padding: 0.8rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  border-left: 4px solid #b91c1c;
+}
+
+.announcement-success {
+  background-color: #dcfce7;
+  color: #15803d;
+  padding: 0.8rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  border-left: 4px solid #15803d;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .announcement-form-container {
+    width: 95%;
+    padding: 1.5rem;
+  }
+
+  .rich-text-toolbar {
+    padding: 0.3rem;
+  }
+
+  .rich-text-toolbar button {
+    padding: 0.4rem;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+    gap: 0.8rem;
+  }
+
+  .cancel-btn,
+  .announce-btn {
+    width: 100%;
+    padding: 0.8rem;
+  }
+}
+
+/* Add to existing CSS */
+.disabled-toolbar {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.editor-loading {
+  background-color: #f9fafb;
+  cursor: not-allowed;
+  color: #9ca3af;
+}
+
+.rich-text-editor:empty:before {
+  content: attr(placeholder);
+  color: #9ca3af;
+  font-style: italic;
+}

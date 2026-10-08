@@ -1,0 +1,158 @@
+/* Responsive, polished styling for TnP Coordinator registration
+   - Mobile-first and fluid across breakpoints
+   - Clear error states and accessible focus
+   - Prefilled summary with icons, responsive form grid
+*/
+
+/* Base page */
+.tnpco-register-page {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(180deg, #f6f7fb 0%, #fbfdff 100%);
+  min-height: 100vh;
+  color: #0f172a;
+}
+
+/* Top status bar: sticky with time and current user */
+.tnpco-top-status {
+  width: 100%;
+  background: #ffffff;
+  padding: 8px 0;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+.tnpco-top-status__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 18px;
+  align-items: center;
+  color: #475569;
+  min-height: 36px;
+}
+.tnpco-status-item { display:flex; gap:8px; align-items:center; font-size:0.92rem; white-space:nowrap; }
+.tnpco-status-icon { color: #1e3a8a; }
+
+/* Container */
+.tnpco-register-container {
+  max-width: 1100px;
+  margin: 18px auto 64px;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+/* Card */
+.tnpco-register-card {
+  background: linear-gradient(180deg,#ffffff,#f8fbff);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 12px 36px rgba(14, 28, 80, 0.06);
+  border: 1px solid rgba(30,30,63,0.04);
+}
+
+/* Header */
+.tnpco-register-header { display:flex; flex-direction:column; gap:6px; margin-bottom:14px; }
+.tnpco-register-title { font-size:1.2rem; margin:0; font-weight:800; color:#0f172a; }
+.tnpco-register-sub { margin:0; font-size:0.95rem; color:#64748b; }
+
+/* Prefilled summary */
+.tnpco-user-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 12px 0 18px;
+}
+@media (max-width: 880px) {
+  .tnpco-user-summary { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 520px) {
+  .tnpco-user-summary { grid-template-columns: 1fr; }
+}
+
+.summary-item {
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  background:#fbfdff;
+  padding:12px;
+  border-radius:10px;
+  border: 1px solid rgba(30,30,63,0.04);
+  min-height: 64px;
+}
+.summary-item.has-error { box-shadow: 0 6px 14px rgba(220,38,38,0.04); border-color: rgba(220,38,38,0.12); }
+.summary-icon {
+  width:44px;
+  height:44px;
+  border-radius:8px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,#eef5ff,#e7f0ff);
+  color:#1e3a8a;
+  font-size:1.1rem;
+  flex-shrink:0;
+}
+.summary-body { display:flex; flex-direction:column; gap:4px; }
+.summary-label { font-size:0.82rem; color:#94a3b8; }
+.summary-value { font-weight:700; color:#0f172a; word-break:break-word; }
+
+/* Form */
+.tnpco-form { margin-top: 8px; }
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 14px;
+}
+@media (max-width: 900px) {
+  .form-grid { grid-template-columns: 1fr; gap: 12px 12px; }
+}
+
+.form-row { display:flex; flex-direction:column; }
+.form-row label { font-weight:700; font-size:0.92rem; margin-bottom:8px; color:#0f172a; }
+.tnpco-input {
+  padding:12px 14px;
+  border-radius:10px;
+  border:1px solid #e6e9f2;
+  background:#fff;
+  font-size:0.98rem;
+  color:#0f172a;
+  transition: box-shadow 120ms ease, border-color 120ms ease;
+}
+.tnpco-input:focus { border-color:#1e3a8a; box-shadow:0 8px 24px rgba(30,58,138,0.06); outline:none; }
+.input-error { border-color:#dc2626!important; box-shadow:0 6px 18px rgba(220,38,38,0.06); }
+
+/* Error text */
+.tnpco-error { color:#dc2626; font-size:0.87rem; margin-top:6px; }
+
+/* Actions */
+.form-actions { margin-top:18px; display:flex; gap:12px; justify-content:flex-end; align-items:center; }
+@media (max-width:480px) {
+  .form-actions { flex-direction:column; justify-content:stretch; gap:10px; }
+}
+.tnpco-submit-btn {
+  background: linear-gradient(135deg,#1e1e3f,#2a2a5a);
+  color:#fff;
+  padding:10px 18px;
+  border-radius:10px;
+  border: none;
+  font-weight:700;
+  cursor:pointer;
+  box-shadow:0 8px 24px rgba(30,30,63,0.12);
+  min-width: 180px;
+}
+.tnpco-submit-btn:disabled { opacity:0.75; cursor:not-allowed; }
+
+/* Status messages */
+.tnpco-status { margin-top:14px; padding:12px 14px; border-radius:10px; font-weight:700; }
+.tnpco-status-error { background:#fff5f5; color:#dc2626; border:1px solid rgba(220,38,38,0.06); }
+.tnpco-status-success { background:#f0fff6; color:#059669; border:1px solid rgba(5,150,105,0.06); }
+
+/* Very small screens tweaks */
+@media (max-width: 420px) {
+  .tnpco-register-container { padding: 0 12px; }
+  .summary-item { min-height: 56px; }
+  .summary-icon { width:40px; height:40px; }
+  .tnpco-submit-btn { width:100%; min-width: 0; }
+}

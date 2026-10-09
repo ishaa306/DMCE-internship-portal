@@ -3,6 +3,7 @@ import CollegeHeader from '../../shared/CollegeHeader';
 import { internshipApi } from '../../services/internshipApi';
 import InternshipTable from './InternshipTable';
 import InternshipReview from './InternshipReview';
+import Marquee from 'react-fast-marquee';
 import './InternshipVerification.css';
 
 const InternshipVerification = () => {
@@ -158,7 +159,9 @@ const InternshipVerification = () => {
       <CollegeHeader />
       
       <div className="announcement-strip">
-        📢 Internship Verification — Review and verify student internship records
+        <Marquee gradient={false} speed={40}>
+          <span style={{ marginRight: "100vw" }}>📢 Internship Verification — Review and verify student internship records</span>
+        </Marquee>
       </div>
 
       <div className="verification-container">

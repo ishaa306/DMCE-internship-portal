@@ -12,6 +12,24 @@ const InternshipUpdates = () => {
   const [internships, setInternships] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [uploadingId, setUploadingId] = useState(null);
+
+  const handleUploadCertificate = async (internshipId, file) => {
+    if (!file) return;
+    setUploadingId(internshipId);
+    setError(null);
+    try {
+      await internshipApi.uploadCompletionCertificate(internshipId, file);
+      fetchInternships();
+      setShowSuccess(true);
+      setTimeout(() => setShowSuccess(false), 5000);
+    } catch (err) {
+      console.error(err);
+      setError(err.message || "Failed to upload certificate. Please try again.");
+    } finally {
+      setUploadingId(null);
+    }
+  };
 
   const fetchInternships = async () => {
     setIsLoading(true);
@@ -167,25 +185,35 @@ const InternshipUpdates = () => {
 
                       <div className="document-status">
                         <strong>Completion Certificate</strong>
-                        {internship.is_completed === 1 ? (
-                          internship.completion_certificate_key ? (
-                            <div className="document-uploaded">
-                              <span className="success-icon">✓</span> Uploaded
-                              <br />
-                              <a 
-                                href={`${import.meta.env.VITE_INTERNSHIP_API_URL || 'http://localhost:8787'}/api/internships/${internship.id}/completion-certificate`} 
-                                target="_blank" 
-                                rel="noreferrer"
-                                className="document-link"
-                              >
-                                View Document
-                              </a>
-                            </div>
-                          ) : (
-                            <div className="document-missing">Upload Pending</div>
-                          )
+                        {internship.completion_certificate_key ? (
+                          <div className="document-uploaded">
+                            <span className="success-icon">✓</span> Uploaded
+                            <br />
+                            <a 
+                              href={`${import.meta.env.VITE_INTERNSHIP_API_URL || 'http://localhost:8787'}/api/internships/${internship.id}/completion-certificate`} 
+                              target="_blank" 
+                              rel="noreferrer"
+                              className="document-link"
+                            >
+                              View Document
+                            </a>
+                          </div>
                         ) : (
-                          <div className="document-not-provided">Internship ongoing</div>
+                          <div className={internship.is_completed === 1 ? "document-missing" : "document-not-provided"}>
+                            {internship.is_completed === 1 ? "Upload Pending" : "Internship ongoing"}
+                            <div style={{ marginTop: '8px' }}>
+                              <label className="add-internship-btn" style={{ cursor: uploadingId === internship.id ? 'wait' : 'pointer', display: 'inline-block', padding: '4px 8px', fontSize: '0.85rem', width: 'auto' }}>
+                                {uploadingId === internship.id ? "Uploading..." : "Upload Now"}
+                                <input
+                                  type="file"
+                                  style={{ display: 'none' }}
+                                  accept=".pdf,.jpg,.jpeg,.png"
+                                  disabled={uploadingId === internship.id}
+                                  onChange={(e) => handleUploadCertificate(internship.id, e.target.files[0])}
+                                />
+                              </label>
+                            </div>
+                          </div>
                         )}
                       </div>
                     </div>

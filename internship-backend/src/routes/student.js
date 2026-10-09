@@ -259,7 +259,11 @@ const handleDocumentUpload = async (c, docType) => {
     await storage.put(key, file);
 
     const updateField = docType === 'offer_letter' ? 'offer_letter_key' : 'completion_certificate_key';
-    const query = `UPDATE internships SET ${updateField} = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ? AND student_id = ?`;
+    
+    let query = `UPDATE internships SET ${updateField} = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ? AND student_id = ?`;
+    if (docType === 'completion_certificate') {
+      query = `UPDATE internships SET ${updateField} = ?, is_completed = 1, updated_at = CURRENT_TIMESTAMP WHERE id = ? AND student_id = ?`;
+    }
     
     const { success } = await db.prepare(query).bind(key, internshipId, studentId).run();
 

@@ -104,6 +104,55 @@ const InternshipVerification = () => {
     }
   };
 
+  const handleDownloadCSV = () => {
+    if (filteredInternships.length === 0) {
+      alert("No data available to download.");
+      return;
+    }
+
+    const headers = [
+      "Student",
+      "GR Number",
+      "Company",
+      "Role",
+      "Start Date",
+      "Work Mode",
+      "Status"
+    ];
+
+    const escapeCSV = (value) => {
+      if (value === null || value === undefined) return '""';
+      const str = String(value).replace(/"/g, '""');
+      return `"${str}"`;
+    };
+
+    const csvRows = [headers.join(',')];
+    
+    filteredInternships.forEach(internship => {
+      const row = [
+        escapeCSV(internship.student_name || 'N/A'),
+        escapeCSV(internship.student_id),
+        escapeCSV(internship.company_name),
+        escapeCSV(internship.role),
+        escapeCSV(internship.start_date),
+        escapeCSV(internship.work_mode),
+        escapeCSV(internship.status)
+      ];
+      csvRows.push(row.join(','));
+    });
+
+    const csvContent = csvRows.join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'internship-verification.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="internship-verification-page">
       <CollegeHeader />
@@ -177,6 +226,13 @@ const InternshipVerification = () => {
                   <option value="Verified">Verified</option>
                   <option value="Rejected">Rejected</option>
                 </select>
+                <button 
+                  className="btn-download" 
+                  onClick={handleDownloadCSV}
+                  disabled={filteredInternships.length === 0}
+                >
+                  ⬇ Download CSV
+                </button>
               </div>
             </div>
 

@@ -45,6 +45,7 @@ import StudentTerms from "./student/components/StudentTerms";
 import UnderDevelopmentPage from "./student/pages/UnderDevelopmentPage";
 import StudentViewAnnouncement from "./student/components/StudentViewAnnouncement";
 import InternshipUpdates from "./student/pages/InternshipUpdates/InternshipUpdates";
+import PlacementUpdates from "./student/pages/PlacementUpdates/PlacementUpdates";
 
 /* -------------------- Company -------------------- */
 import CompanyLogin from "./company/Login/CompanyLogin";
@@ -170,6 +171,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <InternshipUpdates />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/student/placements"
+            element={
+              <ProtectedRoute>
+                <PlacementUpdates />
               </ProtectedRoute>
             }
           />

@@ -142,6 +142,13 @@ const StudentDashboard = () => {
           <h3>Internship Updates</h3>
           <p>Manage and submit your internship details.</p>
         </div>
+        <div className="dashboard-card" onClick={() => handleNavigate('/student/placements')}>
+          <div className="dashboard-card-icon status">
+            <FaBriefcase />
+          </div>
+          <h3>Campus Placement Details</h3>
+          <p>Manage and submit your campus/off-campus placement details.</p>
+        </div>
       </div>
     </div>
   );

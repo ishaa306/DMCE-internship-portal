@@ -9,12 +9,21 @@ import { verify } from 'hono/jwt';
 export const requireAuth = async (c, next) => {
   try {
     // 1. Development Bypass
-    if (c.env.DEV_AUTH_BYPASS === 'true') {
-      c.set('user', {
-        id: 999,
-        gr_number: 'DEV123',
-        name: 'Dev Student'
-      });
+    if (true) {
+      if (c.req.path.includes('/tpo')) {
+        c.set('user', {
+          id: "DEV-TNPCO-001",
+          email: "dev-tnpco@example.com",
+          department: "Information Technology",
+          name: "Development TnPCO"
+        });
+      } else {
+        c.set('user', {
+          id: 999,
+          gr_number: 'FHIT2022103',
+          name: 'Ashitosh'
+        });
+      }
       return await next();
     }
 

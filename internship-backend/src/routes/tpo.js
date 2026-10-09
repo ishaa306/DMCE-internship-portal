@@ -158,6 +158,15 @@ const handleDocumentDownload = async (c, docType) => {
     object.writeHttpMetadata(headers);
     headers.set('etag', object.httpEtag);
     
+    if (!headers.has('Content-Type') || headers.get('Content-Type') === 'application/octet-stream') {
+      const ext = internship.key.split('.').pop().toLowerCase();
+      let contentType = 'application/octet-stream';
+      if (ext === 'pdf') contentType = 'application/pdf';
+      else if (ext === 'png') contentType = 'image/png';
+      else if (ext === 'jpg' || ext === 'jpeg') contentType = 'image/jpeg';
+      headers.set('Content-Type', contentType);
+    }
+    
     // Add CORS headers for the blob download if needed, but hono/cors middleware handles it
     return new Response(object.body, { headers });
   } catch (error) {

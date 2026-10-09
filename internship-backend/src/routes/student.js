@@ -256,7 +256,9 @@ const handleDocumentUpload = async (c, docType) => {
     const uniqueId = crypto.randomUUID();
     const key = `internships/${studentId}/${internshipId}/${docType.replace('_', '-')}/${uniqueId}.${ext}`;
 
-    await storage.put(key, file);
+    await storage.put(key, file.stream ? file.stream() : file, {
+      httpMetadata: { contentType: file.type }
+    });
 
     const updateField = docType === 'offer_letter' ? 'offer_letter_key' : 'completion_certificate_key';
     
@@ -311,6 +313,15 @@ const handleDocumentDownload = async (c, docType) => {
     const headers = new Headers();
     object.writeHttpMetadata(headers);
     headers.set('etag', object.httpEtag);
+    
+    if (!headers.has('Content-Type') || headers.get('Content-Type') === 'application/octet-stream') {
+      const ext = internship.key.split('.').pop().toLowerCase();
+      let contentType = 'application/octet-stream';
+      if (ext === 'pdf') contentType = 'application/pdf';
+      else if (ext === 'png') contentType = 'image/png';
+      else if (ext === 'jpg' || ext === 'jpeg') contentType = 'image/jpeg';
+      headers.set('Content-Type', contentType);
+    }
     
     // Provide a generic filename with correct extension
     const ext = internship.key.split('.').pop();

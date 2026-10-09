@@ -3,6 +3,8 @@ import axios from "axios";
 import CollegeHeader from "../../shared/CollegeHeader";
 import { useNavigate } from "react-router-dom";
 
+import Marquee from "react-fast-marquee";
+
 // Import company logos for marquee
 import aurionpro from "../../assets/images/auri.jpeg";
 import cap from "../../assets/images/cap.png";
@@ -163,7 +165,7 @@ const ViewOpportunities = () => {
       <footer className="oppo-footer">
         <h3 className="recruiters-title">🤝 Our Recruiters</h3>
         <div className="logos-marquee">
-          <div className="logos-marquee-track">
+          <Marquee gradient={false} speed={40} className="logos-marquee-track">
             {[aurionpro, cap, tcs, delo, ibm].map((logo, i) => (
               <img
                 key={i}
@@ -171,27 +173,10 @@ const ViewOpportunities = () => {
                 alt="Recruiter Logo"
                 className="recruiter-logo"
                 loading="lazy"
+                style={{ marginLeft: "54px" }}
               />
             ))}
-            {[aurionpro, cap, tcs, delo, ibm].map((logo, i) => (
-              <img
-                key={i + 10}
-                src={logo}
-                alt="Recruiter Logo"
-                className="recruiter-logo"
-                loading="lazy"
-              />
-            ))}
-            {[aurionpro, cap, tcs, delo, ibm].map((logo, i) => (
-              <img
-                key={i + 20}
-                src={logo}
-                alt="Recruiter Logo"
-                className="recruiter-logo"
-                loading="lazy"
-              />
-            ))}
-          </div>
+          </Marquee>
         </div>
       </footer>
     </div>

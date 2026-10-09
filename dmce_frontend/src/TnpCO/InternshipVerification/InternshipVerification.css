@@ -79,6 +79,8 @@
   font-size: 0.95rem;
   outline: none;
   transition: border-color 0.2s;
+  background-color: white;
+  color: black;
 }
 
 .search-box input:focus {
@@ -97,6 +99,7 @@
   border: 1px solid #cbd5e1;
   border-radius: 6px;
   background-color: white;
+  color: black;
   font-size: 0.95rem;
   outline: none;
   cursor: pointer;

@@ -10,6 +10,7 @@ import {
   FaClipboardCheck,
 } from "react-icons/fa";
 import CollegeHeader from "../../shared/CollegeHeader";
+import Marquee from "react-fast-marquee";
 import "./TnPCODashboard.css";
 import sampleData from "../sampleData";
 
@@ -98,7 +99,9 @@ const TnPCODashboard = () => {
       <CollegeHeader />
 
       <div className="announcement-strip">
-        📢 TnP Coordinator Portal — manage uploads, view analytics and coordinate placements
+        <Marquee gradient={false} speed={40}>
+          <span style={{ marginRight: "100vw" }}>📢 TnP Coordinator Portal — manage uploads, view analytics and coordinate placements</span>
+        </Marquee>
       </div>
 
       {/* Dashboard header with profile info */}

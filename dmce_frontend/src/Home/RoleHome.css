@@ -264,8 +264,6 @@
 .logos-marquee-track {
   display: flex;
   align-items: center;
-  gap: 54px;
-  animation: scroll-left 15s linear infinite;
 }
 
 .recruiter-logo {
@@ -283,17 +281,6 @@
   filter: grayscale(0);
   opacity: 1;
   transform: scale(1.1);
-}
-
-/* Animation for marquee */
-@keyframes scroll-left {
-  0% {
-    transform: translateX(0);
-  }
-
-  100% {
-    transform: translateX(-33.33%);
-  }
 }
 
 .footer-content {

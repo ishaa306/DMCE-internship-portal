@@ -3,6 +3,7 @@ import './CompanyLogin.css';
 import dmceLogo from '../../assets/images/dmce.png';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import Marquee from 'react-fast-marquee';
 
 const CompanyLogin = () => {
   const [companyEmail, setCompanyEmail] = useState('');
@@ -92,11 +93,13 @@ const CompanyLogin = () => {
   return (
     <>
       <div className="comp-announcement-bar">
-        <marquee scrollamount="6" behavior="scroll" direction="left">
-          📣 We are proud to announce the NAAC accreditation (Cycle-2) of our institute with Grade 'A'! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          🏆 NBA accreditation of Civil and Chemical Engineering achieved! &nbsp;&nbsp;
-          🎓 Your involvement in our placement process inspires us to continuously strive for excellence. 🎓 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </marquee>
+        <Marquee gradient={false} speed={40}>
+          <span style={{ marginRight: "100vw" }}>
+            📣 We are proud to announce the NAAC accreditation (Cycle-2) of our institute with Grade 'A'! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            🏆 NBA accreditation of Civil and Chemical Engineering achieved! &nbsp;&nbsp;
+            🎓 Your involvement in our placement process inspires us to continuously strive for excellence. 🎓
+          </span>
+        </Marquee>
       </div>
 
       <div className="comp-login-wrapper">

@@ -136,6 +136,8 @@ select {
   padding: 0.8rem;
   border: 1px solid #ddd;
   border-radius: 8px;
+  background-color: white;
+  color: black;
   font-size: 1rem;
   font-family: inherit;
   box-sizing: border-box;

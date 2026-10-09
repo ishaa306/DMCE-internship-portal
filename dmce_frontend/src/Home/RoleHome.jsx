@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Marquee from "react-fast-marquee";
 import { FaGraduationCap, FaBuilding, FaUserTie, FaChevronDown, FaLinkedin, FaUserCog } from "react-icons/fa";
 import { MdSupervisorAccount } from "react-icons/md";
 import CollegeHeader from "../shared/CollegeHeader";
@@ -152,7 +153,7 @@ const RoleHome = () => {
             exceptional opportunities to our students.
           </p>
           <div className="logos-marquee">
-            <div className="logos-marquee-track">
+            <Marquee gradient={false} speed={40} className="logos-marquee-track">
               {[aurionpro, cap, tcs, delo, ibm].map((logo, i) => (
                 <img
                   key={i}
@@ -160,28 +161,10 @@ const RoleHome = () => {
                   alt="Recruiter Logo"
                   className="recruiter-logo"
                   loading="lazy"
+                  style={{ marginLeft: "54px" }}
                 />
               ))}
-              {/* Duplicate for smoother looping */}
-              {[aurionpro, cap, tcs, delo, ibm].map((logo, i) => (
-                <img
-                  key={i + 10}
-                  src={logo}
-                  alt="Recruiter Logo"
-                  className="recruiter-logo"
-                  loading="lazy"
-                />
-              ))}
-              {[aurionpro, cap, tcs, delo, ibm].map((logo, i) => (
-                <img
-                  key={i + 20}
-                  src={logo}
-                  alt="Recruiter Logo"
-                  className="recruiter-logo"
-                  loading="lazy"
-                />
-              ))}
-            </div>
+            </Marquee>
           </div>
         </div>
       </div>

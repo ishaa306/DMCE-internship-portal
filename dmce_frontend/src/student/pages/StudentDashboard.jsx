@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import CollegeHeader from '../../shared/CollegeHeader';
 import './StudentDashboard.css';
 import { FaUserCircle, FaBriefcase, FaFileAlt, FaSignOutAlt, FaLaptopCode } from 'react-icons/fa';
+import Marquee from 'react-fast-marquee';
 
 const StudentDashboard = () => {
   const navigate = useNavigate();
@@ -84,15 +85,17 @@ const StudentDashboard = () => {
 
       <div className="announcement-strip">
         {/* Clickable marquee — navigates to announcements on click or Enter/Space key */}
-        <marquee
+        <div
           onClick={handleAnnouncementClick}
           onKeyDown={handleAnnouncementKeyDown}
           role="button"
           tabIndex={0}
-          style={{ cursor: 'pointer' }}
+          style={{ cursor: 'pointer', outline: 'none' }}
         >
-          📢 Click here to view all Announcements
-        </marquee>
+          <Marquee gradient={false} speed={40}>
+            <span style={{ marginRight: "100vw" }}>📢 Click here to view all Announcements</span>
+          </Marquee>
+        </div>
       </div>
 
       <div className="dashboard-header">

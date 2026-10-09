@@ -4,6 +4,7 @@ import axios from 'axios';
 import CollegeHeader from '../shared/CollegeHeader';
 import { MdPostAdd, MdWorkOutline, MdPeopleAlt, MdUploadFile } from 'react-icons/md';
 import { FaChartLine, FaUsers, FaBriefcase, FaSignOutAlt, FaUserCircle } from 'react-icons/fa';
+import Marquee from 'react-fast-marquee';
 import './Dashboard.css';
 
 const CompanyDashboard = () => {
@@ -207,7 +208,9 @@ const CompanyDashboard = () => {
       <CollegeHeader />
 
       <div className="co-announcement-strip">
-        <marquee>📢 Welcome to the Company Portal! You can post jobs, view applications, and manage your recruitment process here.</marquee>
+        <Marquee gradient={false} speed={40}>
+          <span style={{ marginRight: "100vw" }}>📢 Welcome to the Company Portal! You can post jobs, view applications, and manage your recruitment process here.</span>
+        </Marquee>
       </div>
 
       {/* Dashboard header with profile info */}

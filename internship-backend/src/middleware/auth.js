@@ -19,9 +19,9 @@ export const requireAuth = async (c, next) => {
         });
       } else {
         c.set('user', {
-          id: 999,
+          id: 959,
           gr_number: 'FHIT2022103',
-          name: 'Ashitosh'
+          name: 'Ashitosh '
         });
       }
       return await next();

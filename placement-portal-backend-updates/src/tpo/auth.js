@@ -75,6 +75,7 @@ tpoauth.post('/login', rateLimiter(5, 60 * 1000), async (c) => {
     // Final response
     return c.json({
       message: '✅ TPO login successful',
+      token,
       password_updated: user.password_updated,
       login_time: currentDateTime,
       email: user.email,

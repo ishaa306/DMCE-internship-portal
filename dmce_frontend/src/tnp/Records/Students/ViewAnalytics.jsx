@@ -25,6 +25,16 @@ const DEPT_FULL_FORM = {
 
 const API_BASE_URL = "https://placement-portal-backend.ramshekade20.workers.dev/api";
 
+const getAuthToken = () => {
+    return (
+        localStorage.getItem("tpo_token") ||
+        localStorage.getItem("token") ||
+        localStorage.getItem("tnp_token") ||
+        localStorage.getItem("authToken") ||
+        ""
+    );
+};
+
 const ViewAnalytics = () => {
     const [mode, setMode] = useState("student");
     const [selectedDept, setSelectedDept] = useState("All");
@@ -39,51 +49,104 @@ const ViewAnalytics = () => {
         const fetchData = async () => {
             try {
                 setLoading(true);
+                const token = getAuthToken();
+                const headers = {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                };
+                if (token) headers["Authorization"] = `Bearer ${token}`;
 
-                // Fetch all students with their placement status
-                const placedResponse = await fetch(`${API_BASE_URL}/tnp/placed-students?limit=10000`, {
-                    credentials: "include",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                });
+                let placedStudents = [];
+                // 1. Fetch placed students
+                try {
+                    const placedResponse = await fetch(`${API_BASE_URL}/tnp/placed-students?limit=10000`, {
+                        credentials: "include",
+                        headers,
+                    });
+                    if (placedResponse.ok) {
+                        const placedData = await placedResponse.json();
+                        placedStudents = placedData.data || [];
+                    }
+                } catch (e) {
+                    console.warn("Failed fetching /tnp/placed-students:", e);
+                }
 
-                if (!placedResponse.ok) throw new Error("Failed to fetch placed students");
+                let allStudents = [];
+                // 2. Fetch all student profiles
+                try {
+                    const studentsResponse = await fetch(`${API_BASE_URL}/tnp/students?limit=10000`, {
+                        credentials: "include",
+                        headers,
+                    });
+                    if (studentsResponse.ok) {
+                        const studentData = await studentsResponse.json();
+                        allStudents = studentData.data || [];
+                    }
+                } catch (e) {
+                    console.warn("Failed fetching /tnp/students:", e);
+                }
 
-                const placedData = await placedResponse.json();
-                const placedStudents = placedData.data || [];
-
-                // Fetch all student profiles to get the full list
-                const studentsResponse = await fetch(`${API_BASE_URL}/tnp/students?limit=10000`, {
-                    credentials: "include",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                });
-
-                if (!studentsResponse.ok) throw new Error("Failed to fetch students");
-
-                const studentData = await studentsResponse.json();
-                const allStudents = studentData.data || [];
+                // 3. If neither returned data, fall back to /api/placement-data
+                if (allStudents.length === 0 || placedStudents.length === 0) {
+                    try {
+                        const placementRes = await fetch(`${API_BASE_URL}/placement-data`, {
+                            credentials: "include",
+                            headers,
+                        });
+                        if (placementRes.ok) {
+                            const pData = await placementRes.json();
+                            const pList = pData.placed_students || [];
+                            if (allStudents.length === 0) {
+                                allStudents = pList;
+                            }
+                            if (placedStudents.length === 0) {
+                                placedStudents = pList.map((p, idx) => ({
+                                    application_id: idx + 1,
+                                    student: {
+                                        student_id: p.student_id,
+                                        full_name: `${p.first_name || ""} ${p.last_name || ""}`.trim(),
+                                        email: p.email,
+                                        phone: p.contact_number_primary,
+                                        department: p.department,
+                                    },
+                                    company: {
+                                        company_name: p.company_name,
+                                        company_title: p.company_name,
+                                    },
+                                }));
+                            }
+                        }
+                    } catch (e) {
+                        console.warn("Failed fetching /placement-data:", e);
+                    }
+                }
 
                 // Create a map of placed student IDs for quick lookup
-                const placedIds = new Set(placedStudents.map(p => p.student.student_id));
+                const placedIds = new Set(placedStudents.map(p => p.student?.student_id || p.student_id));
 
                 // Merge data: combine student profiles with placement status
                 const mergedStudents = allStudents.map((student) => {
-                    const placedStudent = placedStudents.find(p => p.student.student_id === student.student_id);
+                    const sId = student.student_id || student.id;
+                    const placedStudent = placedStudents.find(
+                        p => (p.student?.student_id || p.student_id) === sId
+                    );
+                    const name =
+                        student.full_name ||
+                        `${student.first_name || ""} ${student.middle_name || ""} ${student.last_name || ""}`.trim();
+
                     return {
-                        id: student.student_id,
-                        name: `${student.first_name} ${student.middle_name || ""} ${student.last_name}`.trim(),
+                        id: sId,
+                        name: name || sId,
                         department: student.department || "Unknown",
-                        passoutYear: student.expected_graduation_year || student.year_of_admission,
-                        placedStatus: placedStudent ? "Selected" : (student.status === "placed" ? "Selected" : "Not Placed"),
-                        companyName: placedStudent?.company.company_title || placedStudent?.company.company_name || null,
+                        passoutYear: student.expected_graduation_year || student.year_of_admission || student.passoutYear,
+                        placedStatus: placedStudent ? "Selected" : (student.status === "selected" || student.status === "placed" ? "Selected" : "Not Placed"),
+                        companyName:
+                            placedStudent?.company?.company_title ||
+                            placedStudent?.company?.company_name ||
+                            student.company_name ||
+                            null,
                     };
                 });
-
-                console.log("📊 Merged Students:", mergedStudents);
-                console.log("📊 Placed Students Data:", placedStudents);
 
                 setStudents(mergedStudents);
                 setError(null);

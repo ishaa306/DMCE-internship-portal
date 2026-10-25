@@ -81,6 +81,11 @@ const TnPCOLogin = () => {
       localStorage.setItem("login_time", data.login_time || new Date().toISOString());
 
       if (data.name) localStorage.setItem("tnpco_name", data.name);
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("tnp_token", data.token);
+        localStorage.setItem("tpo_token", data.token);
+      }
 
       // Redirect flow same as earlier TnPCO logic
       if (data.password_updated === 0) {

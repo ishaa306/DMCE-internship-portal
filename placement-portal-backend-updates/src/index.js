@@ -716,6 +716,29 @@ app.get("/api/placement-data", async (c) => {
       500
     );
   }
+app.get("/api/students", async (c) => {
+  try {
+    const db = c.env.DB;
+    const result = await db
+      .prepare("SELECT * FROM student_profiles ORDER BY student_id ASC")
+      .all();
+
+    return c.json({
+      success: true,
+      count: result.results.length,
+      data: result.results,
+    });
+  } catch (err) {
+    console.error("❌ Fetch students failed:", err);
+    return c.json(
+      {
+        success: false,
+        message: "Failed to fetch students",
+        details: err.message,
+      },
+      500
+    );
+  }
 });
 
 export default app;

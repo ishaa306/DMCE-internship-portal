@@ -88,6 +88,7 @@ tnpauth.post('/login', rateLimiter(5, 60 * 1000), async (c) => {
     // Final response includes profile_created (true | false)
     return c.json({
       message: '✅ TnP login successful',
+      token,
       password_updated: user.password_updated,
       login_time: currentDateTime,
       email: user.email,

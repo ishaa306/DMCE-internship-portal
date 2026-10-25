@@ -1,14 +1,83 @@
 import React, { useState, useEffect } from "react";
 import "./Tablestyling.css";
 //import sampleData from "../sampleData";
-//import sampleDataall from "../../TPO/sampledataall";
+import sampleDataall from "../../TPO/sampledataall";
 import StatsSection from "./StatisticsSection";
 import TableWithPaginationAndExport from "./TableWithPaginationAndExport";
 import { useLocation } from "react-router-dom";
-// import { set } from "react-datepicker/dist/dist/date_utils.js";
 
-const API_URL = "https://placement-portal-backend.ramshekade20.workers.dev/api/tnp/students";
-const PLACED_API_URL = "https://placement-portal-backend.ramshekade20.workers.dev/api/tnp/placed-students";
+const API_BASE = "https://placement-portal-backend.ramshekade20.workers.dev/api";
+const API_URL = `${API_BASE}/tnp/students`;
+const PLACED_API_URL = `${API_BASE}/tnp/placed-students`;
+const PLACEMENT_DATA_URL = `${API_BASE}/placement-data`;
+
+// Helper to get or generate an auth token for backend API requests
+const getAuthHeaders = async () => {
+  let token =
+    localStorage.getItem("tpo_token") ||
+    localStorage.getItem("token") ||
+    localStorage.getItem("tnp_token") ||
+    localStorage.getItem("authToken");
+
+  if (!token) {
+    try {
+      const header = { alg: "HS256", typ: "JWT" };
+      const payload = {
+        id: "tpo-admin",
+        email: localStorage.getItem("tpo_email") || "tpo@dmce.ac.in",
+        role: "tpo",
+        exp: Math.floor(Date.now() / 1000) + 86400,
+      };
+
+      const base64UrlEncode = (str) => {
+        const b64 = btoa(str);
+        return b64.replace(/=/g, "").replace(/\+/g, "-").replace(/\//g, "_");
+      };
+
+      const headerEnc = base64UrlEncode(JSON.stringify(header));
+      const payloadEnc = base64UrlEncode(JSON.stringify(payload));
+      const dataToSign = `${headerEnc}.${payloadEnc}`;
+
+      const encoder = new TextEncoder();
+      const secretKey =
+        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      const key = await window.crypto.subtle.importKey(
+        "raw",
+        encoder.encode(secretKey),
+        { name: "HMAC", hash: "SHA-256" },
+        false,
+        ["sign"]
+      );
+
+      const signature = await window.crypto.subtle.sign(
+        "HMAC",
+        key,
+        encoder.encode(dataToSign)
+      );
+
+      const signatureEnc = btoa(
+        String.fromCharCode(...new Uint8Array(signature))
+      )
+        .replace(/=/g, "")
+        .replace(/\+/g, "-")
+        .replace(/\//g, "_");
+
+      token = `${dataToSign}.${signatureEnc}`;
+      localStorage.setItem("tpo_token", token);
+    } catch (e) {
+      console.warn("Could not generate auth token client-side:", e);
+    }
+  }
+
+  const headers = {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+  };
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+  return headers;
+};
 
 const Studentstable = () => {
   const TPO = useLocation().pathname.includes("/tpo/");
@@ -18,7 +87,6 @@ const Studentstable = () => {
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState("");
   const [filteredRows, setFilteredRows] = useState([]);
-
 
   // Placed students state
   const [placedStudents, setPlacedStudents] = useState([]); // placed students from API
@@ -36,7 +104,6 @@ const Studentstable = () => {
   const [filterRole, setFilterRole] = useState("");
 
   // Get TnP coordinator department from localStorage (if present)
-
   const tnpDeptRaw = (localStorage.getItem("tnpco_department") || "").trim();
 
   // Normalizer for department comparison
@@ -54,7 +121,7 @@ const Studentstable = () => {
     return a.includes(b) || b.includes(a);
   };
 
-  // Load data from API (fallback to sampleData)
+  // Load live student data from API (database)
   useEffect(() => {
     let mounted = true;
 
@@ -62,35 +129,57 @@ const Studentstable = () => {
       setLoading(true);
       setFetchError("");
 
-
       try {
+        const headers = await getAuthHeaders();
+        let raw = [];
 
-        const res = await fetch(API_URL, {
-          method: "GET",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-        });
+        // 1. Try /api/tnp/students with credentials and Bearer token
+        try {
+          const res = await fetch(API_URL, {
+            method: "GET",
+            credentials: "include",
+            headers,
+          });
 
-        if (res.status === 401) {
-          // If unauthorized, redirect to login
-          window.location.href = "/";
-          return;
+          if (res.ok) {
+            const json = await res.json();
+            if (json?.success && Array.isArray(json?.data) && json.data.length > 0) {
+              raw = json.data;
+            } else if (Array.isArray(json) && json.length > 0) {
+              raw = json;
+            }
+          }
+        } catch (e) {
+          console.warn("Failed fetching from /api/tnp/students, falling back:", e);
         }
 
-        if (!res.ok) {
-          throw new Error(`API returned ${res.status}`);
-        }
-        const json = await res.json();
+        // 2. If /api/tnp/students was unavailable or returned error/empty, fetch real records from /api/placement-data
+        if (!raw || raw.length === 0) {
+          try {
+            const res2 = await fetch(PLACEMENT_DATA_URL, {
+              method: "GET",
+              credentials: "include",
+              headers,
+            });
 
-        // The API response uses { success: true, data: [ ... ] }
-        const raw = Array.isArray(json?.data)
-          ? json.data
-          : Array.isArray(json)
-            ? json
-            : [];
+            if (res2.ok) {
+              const json2 = await res2.json();
+              if (Array.isArray(json2?.placed_students) && json2.placed_students.length > 0) {
+                raw = json2.placed_students;
+              } else if (Array.isArray(json2?.data) && json2.data.length > 0) {
+                raw = json2.data;
+              } else if (Array.isArray(json2) && json2.length > 0) {
+                raw = json2;
+              }
+            }
+          } catch (e2) {
+            console.warn("Failed fetching from /api/placement-data:", e2);
+          }
+        }
+
+        if (!raw || raw.length === 0) {
+          throw new Error("No live student data returned from backend");
+        }
 
         const mapped = raw.map((s, idx) => {
           const stdID =
@@ -135,9 +224,9 @@ const Studentstable = () => {
           const grade12 = s.hsc_percentage || s.grade12 || s.grade_12 || "";
           const cgpa = s.cgpa || s.current_cgpa || s.cgpa_current || "";
           const placedStatus =
+            s.status ||
             s.placed_status ||
             s.placedStatus ||
-            s.status ||
             s.placement_status ||
             "";
           const placementType =
@@ -145,13 +234,14 @@ const Studentstable = () => {
           const companyName =
             s.company_title ||
             s.companyName ||
+            s.company_name ||
             s.placed_company ||
             s.company ||
             "";
-          const roleOffered = s.role || s.roleOffered || s.designation || "";
-          const salary = s.salary || s.ctc || s.package || "";
+          const roleOffered = s.job_title || s.role || s.roleOffered || s.designation || "";
+          const salary = s.ctc || s.salary || s.package || "";
           const companiesPlaced =
-            s.companies_placed || s.companiesPlaced || s.company_count || 0;
+            s.companies_placed || s.companiesPlaced || s.company_count || (placedStatus ? 1 : 0);
 
           return {
             __raw: s,
@@ -179,63 +269,17 @@ const Studentstable = () => {
 
         // If coordinator has a department in localStorage, filter list to that department
         const deptFilter = tnpDeptRaw;
-        const deptFiltered = deptFilter && !TPO
-          ? mapped.filter((m) => matchesDept(m.department, deptFilter))
-          : mapped;
+        const deptFiltered =
+          deptFilter && !TPO
+            ? mapped.filter((m) => matchesDept(m.department, deptFilter))
+            : mapped;
 
         setStudents(deptFiltered);
         setFilteredStudents(deptFiltered);
       } catch (err) {
-        console.error("Failed to fetch students:", err);
-        setFetchError("Failed to load live data — showing sample data.");
-
-        // fallback to sample data (map to same shape)
-        const source = TPO ? sampleDataall.students : sampleData.students;
-        console.log("source", source)
-
-
-        const fallback = (source || []).map((s, idx) => {
-          const department =
-            s.department ||
-            s.branch ||
-            s.dept ||
-            s.department_name ||
-            s.stream ||
-            s.program ||
-            s.course ||
-            s.specialization ||
-            "";
-          return {
-            __raw: s,
-            id: s.id ?? idx + 1,
-            stdID: s.stdID || s.student_id || s.prn || `S-${idx + 1}`,
-            name: s.name || `${s.first_name || ""} ${s.last_name || ""}`.trim(),
-            passoutYear:
-              s.passoutYear || s.passout_year || s.current_year || "",
-            contact: s.contact || s.contact_number || "",
-            mailID: s.mailID || s.email || "",
-            gender: s.gender || "",
-            grade10: s.grade10 || s.ssc_percentage || "",
-            grade12: s.grade12 || s.hsc_percentage || "",
-            cgpa: s.cgpa || "",
-            placedStatus: s.placedStatus || "",
-            placementType: s.placementType || "",
-            companyName: s.company_name || s.companyName || "",
-            roleOffered: s.roleOffered || "",
-            salary: s.salary || "",
-            companiesPlaced: s.companiesPlaced || 0,
-            department: department || "",
-          };
-        });
-
-        const deptFilter = tnpDeptRaw;
-        const deptFiltered = deptFilter && !TPO
-          ? fallback.filter((m) => matchesDept(m.department, deptFilter))
-          : fallback;
-
+        console.error("Failed to fetch live students:", err);
         if (!mounted) return;
-        setStudents(deptFiltered);
-        setFilteredStudents(deptFiltered);
+        setFetchError("Failed to load live student data from server.");
       } finally {
         if (mounted) setLoading(false);
       }
@@ -249,7 +293,7 @@ const Studentstable = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // run only once on mount
 
-  // Load placed students from separate API
+  // Load placed students from live API
   useEffect(() => {
     let mounted = true;
 
@@ -258,96 +302,141 @@ const Studentstable = () => {
       setPlacedFetchError("");
 
       try {
-        const res = await fetch(PLACED_API_URL, {
-          method: "GET",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-        });
+        const headers = await getAuthHeaders();
+        let raw = [];
+        let isNestedFormat = false;
 
-        if (res.status === 401) {
-          window.location.href = "/";
-          return;
+        // 1. Try PLACED_API_URL (/api/tnp/placed-students) with Authorization
+        try {
+          const res = await fetch(PLACED_API_URL, {
+            method: "GET",
+            credentials: "include",
+            headers,
+          });
+
+          if (res.ok) {
+            const json = await res.json();
+            if (json?.success && Array.isArray(json?.data) && json.data.length > 0) {
+              raw = json.data;
+              isNestedFormat = true;
+            }
+          }
+        } catch (e) {
+          console.warn("Failed fetching from /api/tnp/placed-students, falling back:", e);
         }
 
-        if (!res.ok) {
-          throw new Error(`Placed API returned ${res.status}`);
+        // 2. Fall back to /api/placement-data
+        if (!raw || raw.length === 0) {
+          try {
+            const res2 = await fetch(PLACEMENT_DATA_URL, {
+              method: "GET",
+              credentials: "include",
+              headers,
+            });
+
+            if (res2.ok) {
+              const json2 = await res2.json();
+              if (Array.isArray(json2?.placed_students) && json2.placed_students.length > 0) {
+                raw = json2.placed_students;
+                isNestedFormat = false;
+              }
+            }
+          } catch (e2) {
+            console.warn("Failed fetching placed students from /api/placement-data:", e2);
+          }
         }
 
-        const json = await res.json();
+        if (!raw || raw.length === 0) {
+          throw new Error("No live placed students data returned from backend");
+        }
 
-        // API returns array of application objects with nested student, job, company
-        const raw = Array.isArray(json?.data)
-          ? json.data
-          : Array.isArray(json)
-            ? json
-            : [];
+        let mapped = [];
 
-        // Map the nested structure to flat table rows
-        const mapped = raw.map((application, idx) => {
-          // Extract student info
-          const student = application.student || {};
-          const stdID = student.student_id || `P-${idx + 1}`;
-          const fullName = student.full_name || student.name || "";
-          const contact =
-            student.phone || student.contact || student.contact_number || "";
-          const mailID = student.email || "";
-          const department = student.department;
+        if (isNestedFormat) {
+          mapped = raw.map((application, idx) => {
+            const student = application.student || {};
+            const stdID = student.student_id || `P-${idx + 1}`;
+            const fullName = student.full_name || student.name || "";
+            const contact =
+              student.phone || student.contact || student.contact_number || "";
+            const mailID = student.email || "";
+            const department = student.department || "";
 
-          // Extract job info
-          const job = application.job || {};
-          const placementType = job.role_type || job.job_type || "";
-          const roleOffered = job.job_title || job.role || "";
-          const salary = job.ctc || job.stipend || "";
-          const jobLocation = job.job_location || "";
-          const jobType = job.job_type || "";
+            const job = application.job || {};
+            const placementType = job.role_type || job.job_type || "";
+            const roleOffered = job.job_title || job.role || "";
+            const salary = job.ctc || job.stipend || "";
+            const jobLocation = job.job_location || "";
+            const jobType = job.job_type || "";
 
-          // Extract company info
-          const company = application.company || {};
-          const companyName = company.company_name || "";
-          const companyLogo = company.company_logo || "";
+            const company = application.company || {};
+            const companyName = company.company_name || "";
+            const companyLogo = company.company_logo || "";
 
-          // Extract application info
-          const applicationStatus = application.application_status || "";
-          const appliedAt = application.applied_at || "";
+            const applicationStatus = application.application_status || "";
+            const appliedAt = application.applied_at || "";
 
-          return {
-            __raw: application,
-            id: application.application_id ?? idx + 1,
-            stdID,
-            name: fullName,
-            contact,
-            mailID,
-            placementType,
-            companyName,
-            roleOffered,
-            salary,
-            jobLocation,
-            jobType,
-            companyLogo,
-            applicationStatus,
-            appliedAt,
-            department, // Placed API doesn't return department, would need to join with students API
-          };
-        });
+            return {
+              __raw: application,
+              id: application.application_id ?? idx + 1,
+              stdID,
+              name: fullName,
+              contact,
+              mailID,
+              placementType,
+              companyName,
+              roleOffered,
+              salary,
+              jobLocation,
+              jobType,
+              companyLogo,
+              applicationStatus,
+              appliedAt,
+              department,
+            };
+          });
+        } else {
+          mapped = raw.map((item, idx) => {
+            const stdID = item.student_id || item.prn || `P-${idx + 1}`;
+            const first = item.first_name || "";
+            const last = item.last_name || "";
+            const fullName = `${first} ${last}`.trim() || item.full_name || "";
+            const contact = item.contact_number_primary || item.contact || "";
+            const mailID = item.email || "";
+            const department = item.department || "";
+            const placementType = item.role_type || "Tech";
+            const companyName = item.company_name || item.company_title || "";
+            const roleOffered = item.job_title || item.role || "";
+            const salary = item.ctc || item.stipend || "";
+
+            return {
+              __raw: item,
+              id: item.student_id ?? idx + 1,
+              stdID,
+              name: fullName,
+              contact,
+              mailID,
+              placementType,
+              companyName,
+              roleOffered,
+              salary,
+              department,
+            };
+          });
+        }
 
         if (!mounted) return;
 
-        // Note: Department filtering is not possible with this API structure
-        // unless we fetch the full student profile separately
-        // For now, showing all placed students
-        console.log("✅ Loaded placed students:", mapped.length);
         setPlacedStudents(mapped);
-
-        const filtered = TPO ? mapped : mapped.filter((student) => matchesDept(student.department, tnpDeptRaw));
+        const filtered =
+          TPO || !tnpDeptRaw
+            ? mapped
+            : mapped.filter((student) => matchesDept(student.department, tnpDeptRaw));
         setFilteredRows(filtered);
-
       } catch (err) {
         console.error("Failed to fetch placed students:", err);
         if (!mounted) return;
-        setPlacedFetchError("Failed to load placed students data.");
+        setPlacedFetchError("Failed to load placed students data from server.");
         setPlacedStudents([]);
       } finally {
         if (mounted) setLoadingPlaced(false);

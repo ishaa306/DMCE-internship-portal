@@ -291,4 +291,82 @@ tpo.delete('/announcements/:announcement_id', async (c) => {
   }
 })
 
+/**
+ * GET /api/tpo/dashboard-stats
+ * Real-time aggregated statistics for TPO Dashboard
+ */
+tpo.get('/dashboard-stats', async (c) => {
+  try {
+    const db = c.env.DB
+
+    // 1. Total students from student_profiles
+    const totalStudentsRow = await db.prepare(
+      'SELECT COUNT(*) AS total FROM student_profiles'
+    ).first()
+    const totalStudents = Number(totalStudentsRow?.total || 0)
+
+    // 2. Distinct students placed
+    const placedStudentsRow = await db.prepare(
+      "SELECT COUNT(DISTINCT student_id) AS total FROM applications WHERE status IN ('selected', 'offered', 'placed')"
+    ).first()
+    let studentsPlaced = Number(placedStudentsRow?.total || 0)
+    if (totalStudents > 0 && studentsPlaced > totalStudents) {
+      studentsPlaced = totalStudents
+    }
+
+    // 3. Total offers
+    const totalOffersRow = await db.prepare(
+      "SELECT COUNT(*) AS total FROM applications WHERE status IN ('selected', 'offered', 'placed')"
+    ).first()
+    const totalOffers = Number(totalOffersRow?.total || 0)
+
+    // 4. Students unplaced
+    const studentsUnplaced = Math.max(0, totalStudents - studentsPlaced)
+
+    // 5. Placement rate
+    const placementRate = totalStudents > 0
+      ? Number(((studentsPlaced / totalStudents) * 100).toFixed(1))
+      : 0
+
+    // 6. Registered companies
+    const companiesRow = await db.prepare(
+      'SELECT COUNT(*) AS total FROM company_profile'
+    ).first()
+    const registeredCompanies = Number(companiesRow?.total || 0)
+
+    // 7. Upcoming drives (active and drive_date >= current date)
+    const upcomingDrivesRow = await db.prepare(
+      "SELECT COUNT(*) AS total FROM job_postings WHERE status = 'active' AND (drive_date >= DATE('now') OR drive_date IS NULL)"
+    ).first()
+    const upcomingDrives = Number(upcomingDrivesRow?.total || 0)
+
+    // 8. Active announcements
+    const announcementsRow = await db.prepare(
+      'SELECT COUNT(*) AS total FROM announcements'
+    ).first()
+    const activeAnnouncements = Number(announcementsRow?.total || 0)
+
+    return c.json({
+      success: true,
+      stats: {
+        totalStudents,
+        studentsPlaced,
+        studentsUnplaced,
+        totalOffers,
+        placementRate,
+        registeredCompanies,
+        upcomingDrives,
+        activeAnnouncements
+      }
+    })
+  } catch (err) {
+    console.error('❌ Fetch dashboard stats failed:', err)
+    return c.json({
+      success: false,
+      message: 'Failed to fetch dashboard statistics',
+      details: err.message
+    }, 500)
+  }
+})
+
 export default tpo

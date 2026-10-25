@@ -19,6 +19,28 @@ const ViewOpportunities = () => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedFilter, setSelectedFilter] = useState("All");
+
+  const filterOptions = ["All", "Tech", "Non-Tech"];
+
+  const filteredJobs = jobs
+    .filter((job) => job.status === "active")
+    .filter((job) => {
+      if (selectedFilter === "All") return true;
+      const role = (job.role_type || "").trim().toLowerCase();
+      if (selectedFilter === "Tech") {
+        return role === "tech" || role === "technical";
+      }
+      if (selectedFilter === "Non-Tech") {
+        return (
+          role === "non-tech" ||
+          role === "nontech" ||
+          role === "non tech" ||
+          role.startsWith("non")
+        );
+      }
+      return true;
+    });
 
   useEffect(() => {
     fetchJobs();
@@ -86,6 +108,21 @@ const ViewOpportunities = () => {
         </h2>
         <div className="oppo-underline" />
 
+        <div className="oppo-filter-container">
+          <div className="oppo-filter-group" role="group" aria-label="Filter opportunities by role type">
+            {filterOptions.map((filter) => (
+              <button
+                key={filter}
+                type="button"
+                className={`oppo-filter-btn ${selectedFilter === filter ? "active" : ""}`}
+                onClick={() => setSelectedFilter(filter)}
+              >
+                {filter}
+              </button>
+            ))}
+          </div>
+        </div>
+
         {loading ? (
           <div className="loading-container">
             <div className="loading-spinner"></div>
@@ -96,15 +133,17 @@ const ViewOpportunities = () => {
             <p>{error}</p>
             <button onClick={() => window.location.reload()}>Try Again</button>
           </div>
-        ) : jobs.length === 0 ? (
+        ) : filteredJobs.length === 0 ? (
           <div className="no-jobs-message">
-            <p>No job opportunities available at the moment. Check back later!</p>
+            <p>
+              {selectedFilter === "All"
+                ? "No job opportunities available at the moment. Check back later!"
+                : `No ${selectedFilter} opportunities available at the moment.`}
+            </p>
           </div>
         ) : (
           <div className="jobs-grid">
-            {jobs
-              .filter(job => job.status === "active") // Add this filter
-              .map((job) => (
+            {filteredJobs.map((job) => (
                 <div
                   key={job.job_id}
                   className="job-card"

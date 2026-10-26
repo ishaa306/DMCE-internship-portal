@@ -148,11 +148,6 @@ function App() {
           />
           <Route path="/update-pass" element={<ChangePassword />} />
 
-          {/* TPO placement records (currently public - can be protected later) */}
-          <Route
-            path="/tpo/student-placement-records"
-            element={<PlacementRecords />}
-          />
 
           {/* ============================================================
               STUDENT PROTECTED ROUTES
@@ -315,7 +310,38 @@ function App() {
             }
           />
 
-          <Route path="/tpo/view-analytics" element={<ViewAnalytics />} />
+          <Route
+            path="/tpo/companies"
+            element={
+              <ProtectedRoute>
+                <PlacementRecords defaultTable="CompanyTable" />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/tpo/company-records"
+            element={
+              <ProtectedRoute>
+                <PlacementRecords defaultTable="CompanyTable" />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/tpo/student-placement-records"
+            element={
+              <ProtectedRoute>
+                <PlacementRecords defaultTable="StudentsTable" />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/tpo/view-analytics"
+            element={
+              <ProtectedRoute>
+                <ViewAnalytics />
+              </ProtectedRoute>
+            }
+          />
 
           {/* ============================================================
               TnPCO PROTECTED ROUTES

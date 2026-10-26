@@ -1,11 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Companytable from "../../../TnpCO/components/CompanyTable";
 import Studentstable from "../../../TnpCO/components/StudentsTable";
 import YearwiseTable from "../../../TnpCO/components/YearwiseTable";
 import CollegeHeader from "../../../shared/CollegeHeader";
 
-const FilterTable = () => {
-  const [selectedTable, setSelectedTable] = useState("StudentsTable"); // default table
+const FilterTable = ({ defaultTable }) => {
+  const location = useLocation();
+
+  const getInitialTable = () => {
+    if (defaultTable) return defaultTable;
+    const path = (location.pathname || "").toLowerCase();
+    if (path.includes("compan")) return "CompanyTable";
+    if (path.includes("year")) return "YearwiseTable";
+    return "StudentsTable";
+  };
+
+  const [selectedTable, setSelectedTable] = useState(getInitialTable);
+
+  useEffect(() => {
+    if (defaultTable) {
+      setSelectedTable(defaultTable);
+    } else {
+      const path = (location.pathname || "").toLowerCase();
+      if (path.includes("compan")) {
+        setSelectedTable("CompanyTable");
+      } else if (path.includes("year")) {
+        setSelectedTable("YearwiseTable");
+      }
+    }
+  }, [defaultTable, location.pathname]);
 
   // Table options
   const tableOptions = [

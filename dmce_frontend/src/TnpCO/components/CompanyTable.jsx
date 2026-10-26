@@ -156,10 +156,20 @@ const Companytable = () => {
       setLoading(true);
       setError("");
       try {
+        const token =
+          localStorage.getItem("tpo_token") ||
+          localStorage.getItem("token") ||
+          localStorage.getItem("authToken");
+
+        const headers = { Accept: "application/json" };
+        if (token) {
+          headers["Authorization"] = `Bearer ${token}`;
+        }
+
         const resp = await fetch(JOBS_API, {
           method: "GET",
           credentials: "include",
-          headers: { Accept: "application/json" },
+          headers,
           signal: controller.signal,
         });
 

@@ -2,37 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 
 /**
- * Generic verify endpoint (students / TPO / TNP Co)
- * Admin is handled locally to avoid redirect loop
+ * Endpoints for verifying user roles
  */
-const VERIFY_URL = "https://placement-portal-backend.ramshekade20.workers.dev/api/auth/verify";
-
-/**
- * All auth-related keys (for clean logout / expiry)
- */
-const AUTH_KEYS = [
-  "adminAuthenticated",
-  "isAuthenticated",
-  "tpoAuthenticated",
-  "tnpcoAuthenticated",
-  "token",
-  "tpo_token",
-  "tnpco_token",
-  "admin_email",
-  "tpo_email",
-  "tnpco_email",
-  "gr_number",
-  "loginTime",
-  "login_time",
-];
-
-const clearAuthStorage = () => {
-  try {
-    AUTH_KEYS.forEach((k) => localStorage.removeItem(k));
-  } catch (err) {
-    console.warn("Auth storage clear failed", err);
-  }
-};
+const API_BASE = "https://placement-portal-backend.ramshekade20.workers.dev/api";
 
 const getCurrentTimestampIST = () => {
   const now = new Date();
@@ -55,7 +27,7 @@ const ProtectedRoute = ({ children }) => {
       try {
         /**
          * 1️⃣ ADMIN — TRUST LOCAL STORAGE ONLY
-         * (Admin uses its own login flow)
+         * (Admin uses its own dedicated local verification)
          */
         if (localStorage.getItem("adminAuthenticated") === "true") {
           if (!mounted) return;
@@ -65,13 +37,40 @@ const ProtectedRoute = ({ children }) => {
         }
 
         /**
-         * 2️⃣ Local fallback for other roles
+         * 2️⃣ Check role-specific authentication flags
          */
-        const localAuth =
-          localStorage.getItem("isAuthenticated") === "true" ||
+        const isTpo =
           localStorage.getItem("tpoAuthenticated") === "true" ||
-          localStorage.getItem("tnpcoAuthenticated") === "true";
+          Boolean(localStorage.getItem("tpo_token"));
+        const isTnpCo =
+          localStorage.getItem("tnpcoAuthenticated") === "true" ||
+          Boolean(localStorage.getItem("tnpco_token"));
+        const isStudent =
+          localStorage.getItem("isAuthenticated") === "true" ||
+          Boolean(localStorage.getItem("token") || localStorage.getItem("gr_number"));
 
+        const isTpoRoute = location.pathname.startsWith("/tpo");
+        const isTnpCoRoute = location.pathname.startsWith("/tnpco");
+        const isStudentRoute =
+          location.pathname.startsWith("/student") ||
+          location.pathname === "/student-dashboard";
+
+        // If requesting a role-restricted route, ensure the respective role flag is present
+        if (isTpoRoute && !isTpo) {
+          if (!mounted) return;
+          setIsAuthenticated(false);
+          setIsLoading(false);
+          return;
+        }
+
+        if (isTnpCoRoute && !isTnpCo) {
+          if (!mounted) return;
+          setIsAuthenticated(false);
+          setIsLoading(false);
+          return;
+        }
+
+        const localAuth = isTpo || isTnpCo || isStudent;
         if (!localAuth) {
           if (!mounted) return;
           setIsAuthenticated(false);
@@ -80,20 +79,71 @@ const ProtectedRoute = ({ children }) => {
         }
 
         /**
-         * 3️⃣ Server verification (students / TPO / TNP Co)
+         * 3️⃣ Server verification with appropriate role endpoint & Bearer token
          */
-        const resp = await fetch(VERIFY_URL, {
+        let verifyEndpoint = `${API_BASE}/auth/verify`;
+        let token =
+          localStorage.getItem("token") || localStorage.getItem("authToken");
+
+        if (isTpoRoute || isTpo) {
+          verifyEndpoint = `${API_BASE}/tpo-auth/verify`;
+          token =
+            localStorage.getItem("tpo_token") ||
+            localStorage.getItem("token") ||
+            token;
+        } else if (isTnpCoRoute || isTnpCo) {
+          verifyEndpoint = `${API_BASE}/tnp-auth/verify`;
+          token =
+            localStorage.getItem("tnpco_token") ||
+            localStorage.getItem("token") ||
+            token;
+        }
+
+        const headers = { Accept: "application/json" };
+        if (token) {
+          headers["Authorization"] = `Bearer ${token}`;
+        }
+
+        const resp = await fetch(verifyEndpoint, {
           method: "GET",
           credentials: "include",
           signal: controller.signal,
-          headers: { Accept: "application/json" },
+          headers,
         });
 
         if (!mounted) return;
 
         if (resp.status === 401) {
-          clearAuthStorage();
-          setIsAuthenticated(false);
+          const data = await resp.json().catch(() => null);
+          const isExplicitExpiredOrInvalid =
+            data &&
+            (data.error?.includes("Invalid") ||
+              data.error?.includes("expired") ||
+              data.error?.includes("Session expired"));
+
+          if (isExplicitExpiredOrInvalid) {
+            // Cleanly clear only credentials for this role
+            if (isTpoRoute || isTpo) {
+              localStorage.removeItem("tpoAuthenticated");
+              localStorage.removeItem("tpo_token");
+              localStorage.removeItem("tpo_email");
+              localStorage.removeItem("tpo_name");
+            } else if (isTnpCoRoute || isTnpCo) {
+              localStorage.removeItem("tnpcoAuthenticated");
+              localStorage.removeItem("tnpco_token");
+              localStorage.removeItem("tnpco_email");
+            } else {
+              localStorage.removeItem("isAuthenticated");
+              localStorage.removeItem("token");
+              localStorage.removeItem("gr_number");
+            }
+            setIsAuthenticated(false);
+            setIsLoading(false);
+            return;
+          }
+
+          // If cross-origin cookies were omitted by browser but local session exists, trust localAuth
+          setIsAuthenticated(localAuth);
           setIsLoading(false);
           return;
         }
@@ -104,12 +154,16 @@ const ProtectedRoute = ({ children }) => {
           return;
         }
 
-        const data = await resp.json();
-        setIsAuthenticated(Boolean(data?.authenticated));
+        const data = await resp.json().catch(() => null);
+        if (data && typeof data.authenticated === "boolean") {
+          setIsAuthenticated(data.authenticated);
+        } else {
+          setIsAuthenticated(localAuth);
+        }
       } catch (err) {
-        console.warn("Auth verify failed:", err);
+        console.warn("Auth verify network check failed:", err);
 
-        // Network / timeout fallback
+        // Network / timeout fallback: preserve existing active session
         const fallback =
           localStorage.getItem("adminAuthenticated") === "true" ||
           localStorage.getItem("isAuthenticated") === "true" ||
